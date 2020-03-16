@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Auth\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use App\Notifications\VerifyRegistration;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Auth;
-use Str;
 
 class LoginController extends Controller
 {
@@ -30,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+//    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -39,7 +36,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
     }
 
     /**
@@ -66,10 +63,13 @@ class LoginController extends Controller
             'password'=>$request->password,
         ];
 
-        if(\Illuminate\Support\Facades\Auth::guard('admin')->attempt($credential, $request->remember)){
-            return redirect()->intended(route('admin.home'));
+        if(Auth::guard('admin')->attempt($credential, $request->remember)){
+            return redirect()->intended(route('admin.dashboard'));
+        } else {
+            $request->session()->flash('message', 'Email or Password does not match!');
+            $request->session()->flash('alert-type', 'error');
+            return redirect()->back()->withInput($request->only('email,remember'));
         }
-        return redirect()->back()->withInput($request->only('email,remember'));
     }
 
 }

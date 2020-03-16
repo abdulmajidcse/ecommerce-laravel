@@ -37,7 +37,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <form action="{{ route('admin.logout') }}" method="POST" class="form-inline">
+                <form action="{{ route('logout') }}" method="POST" class="form-inline">
                     @csrf
                     <button type="submit" class="btn btn-primary">Logout</button>
                 </form>

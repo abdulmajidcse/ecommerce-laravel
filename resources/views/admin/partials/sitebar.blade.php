@@ -95,6 +95,19 @@
                 </div>
             </li> <!-- end of district menu -->
 
+            <!-- order menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#order-menu" aria-expanded="true" aria-controls="order-menu">
+                    <i class="fas fa-building"></i>
+                    <span>Order</span>
+                </a>
+                <div id="order-menu" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ url('/admin/orders') }}">All order</a>
+                    </div>
+                </div>
+            </li> <!-- end of order menu -->
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

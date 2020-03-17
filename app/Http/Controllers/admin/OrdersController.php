@@ -18,7 +18,7 @@ class OrdersController extends Controller
     {
         $orders = Order::orderBy('id', 'desc')->get();
 
-        return view('admin.pages.orders.all-order', compact('orders'));
+        return view('admin.pages.orders.all_order', compact('orders'));
     }
 
     /**
@@ -31,7 +31,9 @@ class OrdersController extends Controller
     {
         $order = Order::find($id);
         if (!is_null($order)) {
-            return view('admin.pages.orders.view-order', compact('order'));
+            $order->is_seen_by_admin = 1;
+            $order->save();
+            return view('admin.pages.orders.view_order', compact('order'));
         } else {
             $notification = [
                 'message' => 'Something went wrong!',
@@ -39,6 +41,50 @@ class OrdersController extends Controller
             ];
             return redirect('/admin/orders')->with($notification);
         }
+    }
+
+    public function complete($id)
+    {
+        $order = Order::find($id);
+        if ($order->is_completed) {
+            $order->is_completed = 0;
+            $notification = [
+                'message' => 'Order Cancel successfully!',
+                'alert-type' => 'success'
+            ];
+        } else {
+            $order->is_completed = 1;
+            $notification = [
+                'message' => 'Order completed successfully!',
+                'alert-type' => 'success'
+            ];
+        }
+        $order->save();
+
+        return redirect()->back()->with($notification);
+
+    }
+
+    public function paid($id)
+    {
+        $order = Order::find($id);
+        if ($order->is_paid) {
+            $order->is_paid = 0;
+            $notification = [
+                'message' => 'Payment cancel successfully!',
+                'alert-type' => 'success'
+            ];
+        } else {
+            $order->is_paid = 1;
+            $notification = [
+                'message' => 'Paid order successfully!',
+                'alert-type' => 'success'
+            ];
+        }
+        $order->save();
+
+        return redirect()->back()->with($notification);
+
     }
 
 }

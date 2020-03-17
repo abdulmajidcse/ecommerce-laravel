@@ -62,22 +62,8 @@ class RegisterController extends Controller
      */
     public function select_district($division_id)
     { 
-        if ($division_id != 'Select a division') {
-            $districts = District::where('division_id', $division_id)->get();
-            $count = count($districts);
-            if ($count > 0) {
-                echo "<select id='district_id' class='form-control' name='district_id'><option value='' selected>Select a district</option>";
-                foreach ($districts as $value) {
-                    echo "<option value='".$value['id']."'>".$value['name']."</option>";
-                }
-                echo "</select>";
-                echo "<script>document.getElementById('temporary_select').style.display='none';</script>";
-            }  else {
-                echo "<script type='text/javascript'>swal('No district!', 'Please, select another division.', 'warning');</script>";
-            }
-        } else {
-            echo "";
-        }
+        $districts = District::where('division_id', $division_id)->get();
+        return json_encode($districts);
     }
 
     /**

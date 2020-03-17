@@ -5,29 +5,29 @@ raw javascript code
 
 //back to top scroll**********
 //Get the button
-var mybutton = document.getElementById("backtotop");
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    mybutton.style.display = "block";
-  } else {
-    mybutton.style.display = "none";
-  }
-}// When the user clicks on the button, scroll to the top of the document
-function topFunction() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-}//end of back to top scroll**********
+// var mybutton = document.getElementById("backtotop");
+// // When the user scrolls down 20px from the top of the document, show the button
+// window.onscroll = function() {scrollFunction()};
+// function scrollFunction() {
+//   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+//     mybutton.style.display = "block";
+//   } else {
+//     mybutton.style.display = "none";
+//   }
+// }// When the user clicks on the button, scroll to the top of the document
+// function topFunction() {
+//   document.body.scrollTop = 0;
+//   document.documentElement.scrollTop = 0;
+// }//end of back to top scroll**********
 
-//printDocument by selection area**********
-function printContent(printArea){
-  var restorepage = document.body.innerHTML;
-  var printcontent = document.getElementById(printArea).innerHTML;
-  document.body.innerHTML = printcontent;
-  window.print();
-  document.body.innerHTML = restorepage;
-}//end of printDocument by selection area**********
+// //printDocument by selection area**********
+// function printContent(printArea){
+//   var restorepage = document.body.innerHTML;
+//   var printcontent = document.getElementById(printArea).innerHTML;
+//   document.body.innerHTML = printcontent;
+//   window.print();
+//   document.body.innerHTML = restorepage;
+// }//end of printDocument by selection area**********
 
 /**
 ***************************

@@ -37,10 +37,15 @@
           //select all district by division**********
           $("#division_id").change(function(){
             var division_id = $(this).val();
+            var option = "";
             $.get(
               "{{ URL::to('/user/district/select') }}/"+division_id,
               function(data){
-                $("#districtByDivision").html(data);
+                data = JSON.parse(data);
+                data.forEach(function(element){
+                  option += "<option value='"+element.id+"'>"+element.name+"</option>";
+                });
+                $("#district_id").html(option);
             }
             );
           });//end of select all district by division**********

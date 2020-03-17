@@ -79,16 +79,13 @@
             
                                     <div class="form-group">
                                         <label for="district_id">{{ __('District') }}</label>
-                                        <span id="districtByDivision">
-                                            <select id="temporary_select" class="form-control @error('district_id') is-invalid @enderror">
-                                                <option>Select a district</option>
-                                            </select>
-                                            @error('district_id')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </span>
+                                        <select id="district_id" class="form-control @error('district_id') is-invalid @enderror">
+                                        </select>
+                                        @error('district_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
             
                                     <div class="form-group">

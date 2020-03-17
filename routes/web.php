@@ -89,8 +89,10 @@ Route::prefix('/admin')->group(function(){
         //orders route here
         Route::prefix('/orders')->group(function(){
             Route::get('/', 'admin\OrdersController@index')->name('admin.orders');
-            Route::get('/view/{id}', 'admin\DistrictController@show')->name('admin.orders.show');
-            Route::get('/delete/{id}', 'admin\DistrictController@destroy')->name('admin.orders.delete');
+            Route::get('/view/{id}', 'admin\OrdersController@show')->name('admin.orders.show');
+            Route::get('/delete/{id}', 'admin\OrdersController@destroy')->name('admin.orders.delete');
+            Route::get('/complete/{id}', 'admin\OrdersController@complete')->name('admin.orders.complete');
+            Route::get('/paid/{id}', 'admin\OrdersController@paid')->name('admin.orders.paid');
         });
     });
 

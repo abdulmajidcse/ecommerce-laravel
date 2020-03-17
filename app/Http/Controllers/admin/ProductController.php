@@ -145,7 +145,7 @@ class ProductController extends Controller
             'description' => 'required|max:300',
             'category_id' => 'required|min:1',
             'brand_id' => 'required|min:1',
-            'slug' => 'required|unique:products|min:1|max:50',
+            'slug' => 'required|min:1|max:50',
             'quantity' => 'required|numeric|min:1',
             'price' => 'required|numeric|min:1',
             'image.*' => 'mimes:jpg,jpeg,png|max:4000',

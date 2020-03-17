@@ -136,7 +136,7 @@ class CartController extends Controller
                 'alert-type' => 'error',
             ];
         }
-        return redirect('/carts')->with($notification);
+        return redirect()->back()->with($notification);
     }
 
     /**
@@ -162,6 +162,6 @@ class CartController extends Controller
             ];
         }
 
-        return redirect('/carts')->with($notification);
+        return redirect()->back()->with($notification);
     }
 }

@@ -49,14 +49,11 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-        $validateData = $request->validate([
-            'product_quantity' => 'min:1|numeric'
-        ]);
         $cart = Cart::orWhere('user_id', Auth::id())
                 ->where('ip_address', $request->ip())
-                ->where('product_id', $id)
+                ->where('product_id', $request->id)
                 ->where('order_id', NULL)
                 ->first();
 
@@ -73,17 +70,16 @@ class CartController extends Controller
                 $cart->product_quantity = $request->product_quantity;
             }
 
-            $cart->product_id = $id;
+            $cart->product_id = $request->id;
             $cart->ip_address = $request->ip();
             $cart->save();
         }
 
         $notification = [
-            'message' => 'Product has added to cart',
-            'alert-type' => 'success',
+            'message' => 'Product has added to cart. Total cart Items: ' . Cart::totalItems(),
+            'items' => Cart::totalItems(),
         ];
-
-        return redirect()->back()->with($notification);
+        return json_encode($notification);
     }
 
     /**

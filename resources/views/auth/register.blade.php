@@ -79,7 +79,7 @@
             
                                     <div class="form-group">
                                         <label for="district_id">{{ __('District') }}</label>
-                                        <select id="district_id" class="form-control @error('district_id') is-invalid @enderror">
+                                        <select id="district_id" class="form-control @error('district_id') is-invalid @enderror" name="district_id">
                                         </select>
                                         @error('district_id')
                                             <span class="invalid-feedback" role="alert">

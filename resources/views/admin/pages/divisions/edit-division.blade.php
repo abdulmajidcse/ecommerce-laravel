@@ -24,7 +24,7 @@
                                     <div class="card-header text-primary">Edit division</div>
                 
                                     <div class="card-body">
-                                        <form method="POST" action="{{ url('/admin/divisions/update/'.$division->id) }}">
+                                        <form method="POST" action="{{ url('/admin/divisions/update/'.$division->id) }}" class="was-validated">
                                             @csrf
 
                                             <div class="form-group row">

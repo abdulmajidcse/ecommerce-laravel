@@ -94,6 +94,16 @@ Route::prefix('/admin')->group(function(){
             Route::get('/complete/{id}', 'admin\OrdersController@complete')->name('admin.orders.complete');
             Route::get('/paid/{id}', 'admin\OrdersController@paid')->name('admin.orders.paid');
         });
+
+        //slider crud are here
+        Route::prefix('/sliders')->group(function(){
+            Route::get('/', 'admin\SliderController@index');
+            Route::get('/add', 'admin\SliderController@create');
+            Route::post('/store', 'admin\SliderController@store');
+            Route::get('/delete/{id}', 'admin\SliderController@destroy');
+            Route::get('/edit/{id}', 'admin\SliderController@edit');
+            Route::post('/update/{id}', 'admin\SliderController@update');
+        });
     });
 
 });
@@ -150,7 +160,7 @@ Route::get('/search-product', 'frontend\PagesController@searchProduct');
 //carts crud are here
 Route::prefix('/carts')->group(function(){
 	Route::get('/', 'frontend\CartController@index');
-	Route::post('/store/{id}', 'frontend\CartController@store');
+	Route::post('/store', 'frontend\CartController@store');
 	Route::post('/update/{id}', 'frontend\CartController@update');
 	Route::get('/delete/{id}', 'frontend\CartController@destroy');
 });

@@ -24,7 +24,7 @@
                                     <div class="card-header text-primary">Edit category</div>
                 
                                     <div class="card-body">
-                                        <form method="POST" action="{{ url('/admin/categories/update/'.$category->id) }}" enctype="multipart/form-data">
+                                        <form method="POST" action="{{ url('/admin/categories/update/'.$category->id) }}" enctype="multipart/form-data" class="was-validated">
                                             @csrf
 
                                             <!--

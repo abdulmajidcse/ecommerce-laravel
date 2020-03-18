@@ -24,7 +24,7 @@
                                     <div class="card-header text-primary">Edit product</div>
                 
                                     <div class="card-body">
-                                        <form method="POST" action="{{ URL::to('/admin/products/update/'.$product->id) }}" enctype="multipart/form-data">
+                                        <form method="POST" action="{{ URL::to('/admin/products/update/'.$product->id) }}" enctype="multipart/form-data" class="was-validated">
                                             @csrf
 
                                             <div class="form-group row">

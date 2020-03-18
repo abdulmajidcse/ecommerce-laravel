@@ -24,7 +24,7 @@
                                     <div class="card-header text-primary">Add new category</div>
                 
                                     <div class="card-body">
-                                        <form method="POST" action="{{ route('category-store') }}" enctype="multipart/form-data">
+                                        <form method="POST" action="{{ route('category-store') }}" enctype="multipart/form-data" class="was-validated">
                                             @csrf
                 
                                             <!--

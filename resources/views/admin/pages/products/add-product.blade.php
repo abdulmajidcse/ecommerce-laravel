@@ -24,7 +24,7 @@
                                     <div class="card-header text-primary">Add new product</div>
                 
                                     <div class="card-body">
-                                        <form method="POST" action="{{ URL::to('admin/products/store') }}" enctype="multipart/form-data">
+                                        <form method="POST" action="{{ URL::to('admin/products/store') }}" enctype="multipart/form-data" class="was-validated">
                                             @csrf
 
                                             <div class="form-group row">

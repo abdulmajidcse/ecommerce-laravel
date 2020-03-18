@@ -24,7 +24,7 @@
                                     <div class="card-header text-primary">Add new district</div>
                 
                                     <div class="card-body">
-                                        <form method="POST" action="{{ URL::to('/admin/districts/update/'.$district->id) }}">
+                                        <form method="POST" action="{{ URL::to('/admin/districts/update/'.$district->id) }}" class="was-validated">
                                             @csrf
 
                                             <div class="form-group row">
@@ -46,7 +46,7 @@
                                                 <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
                 
                                                 <div class="col-md-6">
-                                                    <input type="text" id="name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $district->name }}" placeholder="District name" >
+                                                    <input type="text" id="name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $district->name }}" placeholder="District name" required="">
                                                     @error('name')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror

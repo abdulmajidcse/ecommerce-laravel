@@ -33,7 +33,34 @@
           }
         @endif //end of form submit message**********
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        //add to cart**********
+        function addToCart(product_id){
+          $.post( "{{ URL::to('/carts/store') }}", 
+            { id: product_id })
+          .done(function( data ) {
+            data = JSON.parse(data);
+            $('.cart-items').html(data.items);
+            toastr["success"](data.message, "Success!");
+          })
+          .fail(function() {
+            alert( "Something went wrong!" );
+          });
+        };//end of add to cart**********
+
+        //show total cart items by jquery
+        var cartItems = {{ App\Cart::totalItems() }};
+        if (cartItems) {
+          $('.cart-items').html(cartItems);
+        }
+
         $(document).ready(function(){
+          
+
           //select all district by division**********
           $("#division_id").change(function(){
             var division_id = $(this).val();
@@ -49,6 +76,7 @@
             }
             );
           });//end of select all district by division**********
+
 
           //select all district by division in profile edit**********
           $(".division_id").change(function(){

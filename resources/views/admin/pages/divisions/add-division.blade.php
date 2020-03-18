@@ -24,7 +24,7 @@
                                     <div class="card-header text-primary">Add new division</div>
                 
                                     <div class="card-body">
-                                        <form method="POST" action="{{ url('/admin/divisions/store') }}">
+                                        <form method="POST" action="{{ url('/admin/divisions/store') }}" class="was-validated">
                                             @csrf
 
                                             <div class="form-group row">

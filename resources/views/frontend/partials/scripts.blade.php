@@ -52,12 +52,6 @@
           });
         };//end of add to cart**********
 
-        //show total cart items by jquery
-        var cartItems = {{ App\Cart::totalItems() }};
-        if (cartItems) {
-          $('.cart-items').html(cartItems);
-        }
-
         $(document).ready(function(){
           
 

@@ -98,7 +98,7 @@
                                     <i class="fas fa-heart mr-2"></i><span id="header-favorite">0</span>
                                 </a>
                                 <a href="{{ url('/carts') }}" class="header-item">
-                                    <i class="fas fa-shopping-bag mr-2"></i><span id="header-qty" class="mr-3 cart-items">0
+                                    <i class="fas fa-shopping-bag mr-2"></i><span id="header-qty" class="mr-3 cart-items">{{ App\Cart::totalItems() }}
                                     </span>
                                 </a>
                             </div>

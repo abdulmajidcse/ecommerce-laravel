@@ -61,7 +61,7 @@ class CategoryController extends Controller
        if ($image) {
             $extension = $request->image->extension();
             $image_name = time() . "." . $extension;
-            $upload_path = 'public/images/category-images/';
+            $upload_path = 'images/category-images/';
             $image_url = $upload_path . $image_name;
 
             //category table store
@@ -164,7 +164,7 @@ class CategoryController extends Controller
             }
             $extension = $request->image->extension();
             $image_name = time() . "." . $extension;
-            $upload_path = 'public/images/category-images/';
+            $upload_path = 'images/category-images/';
             $image_url = $upload_path . $image_name;
 
             //category table store

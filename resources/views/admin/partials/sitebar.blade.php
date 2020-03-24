@@ -108,6 +108,20 @@
                 </div>
             </li> <!-- end of order menu -->
 
+            <!-- slider menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#slider-menu" aria-expanded="true" aria-controls="order-menu">
+                    <i class="fas fa-building"></i>
+                    <span>Slider</span>
+                </a>
+                <div id="slider-menu" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ url('/admin/sliders/add') }}">Add slider</a>
+                        <a class="collapse-item" href="{{ url('/admin/sliders') }}">All slider</a>
+                    </div>
+                </div>
+            </li> <!-- end of slider menu -->
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

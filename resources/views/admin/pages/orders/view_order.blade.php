@@ -112,6 +112,10 @@
                                         <a href="{{ url('admin/orders/paid/'.$order->id) }}" class="btn btn-success">Paid Order</a>
                                         @endif
 
+                                        <hr>
+
+                                        <a href="{{ url('admin/orders/invoice/'.$order->id) }}" class="btn btn-success">Download Invoice</a>
+
                                     </div>
 
                                 </div>

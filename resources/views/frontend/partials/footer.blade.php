@@ -28,10 +28,16 @@
                             <div class="col-lg-3 col-sm-8 text-center text-sm-left mb-sm-0 mb-3">
                                 <div class="row">
                                     <div class="col-12 text-uppercase">
-                                        <h4>Who are we?</h4>
+                                        <h4>Payment Methods</h4>
                                     </div>
-                                    <div class="col-12 text-justify">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam imperdiet vel ligula vel sodales. Aenean vel ullamcorper purus, ac pharetra arcu. Nam enim velit, ultricies eu orci nec, aliquam efficitur sem. Quisque in sapien a sem vestibulum volutpat at eu nibh. Suspendisse eget est metus. Maecenas mollis quis nisl ac malesuada. Donec gravida tortor massa, vitae semper leo sagittis a. Donec augue turpis, rutrum vitae augue ut, venenatis auctor nulla. Sed posuere at erat in consequat. Nunc congue justo ut ante sodales, bibendum blandit augue finibus.</p>
+                                    <div class="col-12">
+                                        @if(App\Payment::all())
+                                            @foreach(App\Payment::orderBy('priority', 'asc')->get() as $payment)
+                                            {{ $payment->name }} <br/>
+                                            @endforeach
+                                        @else
+                                            {{ 'Not Available!' }}
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +67,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-1 col-sm-2 col-4 mr-auto mb-sm-0 mb-3">
+                            <div class="col-lg-2 col-sm-3 col-4 mr-auto mb-sm-0 mb-3">
                                 <div class="row">
                                     <div class="col-12 text-uppercase text-underline">
                                         <h4>Help</h4>
@@ -90,7 +96,7 @@
                             <div class="col-lg-3 col-sm-6 text-center text-sm-left">
                                 <div class="row">
                                     <div class="col-12 text-uppercase">
-                                        <h4>Newsletter</h4>
+                                        <h4>Get Updates</h4>
                                     </div>
                                     <div class="col-12">
                                         <form action="#">
@@ -105,6 +111,13 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <hr>
+
+                        <div class="text-center mt-4">
+                            <p class="text-uppercase">Developed by <a href="https://www.facebook.com/abdulmajidweb" class="text-info" target="_blank">Abdul Majid</a></p>
+                        </div>
+
                     </div>
                 </footer>
                 <!-- Footer -->

@@ -9,7 +9,7 @@
                             <div class="carousel-inner" role="listbox">
                                 @foreach($sliders as $slider)
                                 <div class="carousel-item {{ $loop->index == 0 ? 'active' : '' }}">
-                                    <img src="{{ url($slider->image) }}" class="slider-img">
+                                    <img src="{{ url($slider->image) }}" class="slider-img" style="width: 100% !important;height: 470px !important;">
                                 </div>
                                 @endforeach
                             </div>

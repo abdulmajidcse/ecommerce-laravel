@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Web Brand')</title>
+    <title>@yield('title', 'E-commerce')</title>
 
     @include('frontend.partials.styles')
 
@@ -94,9 +94,6 @@
                                 </form>
                             </div>
                             <div class="col-lg-auto text-center text-lg-left header-item-holder">
-                                <a href="#" class="header-item">
-                                    <i class="fas fa-heart mr-2"></i><span id="header-favorite">0</span>
-                                </a>
                                 <a href="{{ url('/carts') }}" class="header-item">
                                     <i class="fas fa-shopping-bag mr-2"></i><span id="header-qty" class="mr-3 cart-items">{{ App\Cart::totalItems() }}
                                     </span>

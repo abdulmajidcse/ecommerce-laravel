@@ -18,7 +18,7 @@ class SliderController extends Controller
     {
         //select data from district table
         $sliders = Slider::orderBy('priority', 'asc')->get();
-        return view('admin.pages.sliders.all_slider', compact('sliders'));
+        return view('admin.pages.sliders.allSlider', compact('sliders'));
     }
 
     /**
@@ -28,7 +28,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.sliders.add_slider');
+        return view('admin.pages.sliders.addSlider');
     }
 
     /**
@@ -39,44 +39,37 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $validatedData = $request->validate([
+            'image' => 'required|mimes:jpg,jpeg,png|max:4000',
+            'priority' => 'required|numeric|unique:sliders|min:1|max:20',
+        ]);
+        $slider = new Slider();
+
+        $image = $request->file('image');
+
+        $extension = $request->image->extension();
+        $image_name = time() . "." . $extension;
+        $upload_path = 'images/slider-images/';
+        $image_url = $upload_path . $image_name;
+
+        //slider table store
+        $slider->image = $image_url;
+        $slider->priority = $request->priority;
+        $slider->save();
+
+        //image upload on folder
+        $image->move($upload_path, $image_name);
+
+        //confirm message
+        $notification = [
+            'message' => 'Successfully slider added!',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $slider = Slider::find($id);
-        //check for empty data
-        if ($slider) {
-            return view('admin.pages.districts.edit_slider', compact('slider'));
-        } else {
-            //if here has no slider, redirect
-            $notification = [
-                'message' => 'Something went wrong!',
-                'alert-type' => 'error'
-            ];
-            return redirect()->back()->with($notification);
-        }
-
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        
-    }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -91,6 +84,10 @@ class SliderController extends Controller
         //check for empty data
         if ($slider) {
             //if here has a slider, delete slider
+            $image = $slider->image;
+            if (file_exists($image)) {
+                unlink($image);
+            }
             $slider->delete();
             $notification = [
                 'message' => 'Successfully slider deleted!',

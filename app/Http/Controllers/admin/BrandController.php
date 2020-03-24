@@ -59,7 +59,7 @@ class BrandController extends Controller
        if ($image) {
             $extension = $request->image->extension();
             $image_name = time() . "." . $extension;
-            $upload_path = 'public/images/brand-images/';
+            $upload_path = 'images/brand-images/';
             $image_url = $upload_path . $image_name;
 
             //category table store
@@ -158,7 +158,7 @@ class BrandController extends Controller
             }
             $extension = $request->image->extension();
             $image_name = time() . "." . $extension;
-            $upload_path = 'public/images/brand-images/';
+            $upload_path = 'images/brand-images/';
             $image_url = $upload_path . $image_name;
 
             //category table store

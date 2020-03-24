@@ -74,7 +74,7 @@ class ProductController extends Controller
 
                 $extension = $image->extension();
                 $image_name = uniqid() . "." . $extension;
-                $upload_path = 'public/images/product-images/';
+                $upload_path = 'images/product-images/';
                 $image_url = $upload_path . $image_name;
 
                 $product_image = new ProductImage();
@@ -183,7 +183,7 @@ class ProductController extends Controller
 
                 $extension = $image->extension();
                 $image_name = uniqid() . "." . $extension;
-                $upload_path = 'public/images/product-images/';
+                $upload_path = 'images/product-images/';
                 $image_url = $upload_path . $image_name;
 
                 $product_image = new ProductImage();

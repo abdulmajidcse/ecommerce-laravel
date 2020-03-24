@@ -5,7 +5,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
+            <span class="text-uppercase">Developed by <a href="https://www.facebook.com/abdulmajidweb" class="text-info" target="_blank">Abdul Majid</a></span>
         </div>
     </div>
 </footer>

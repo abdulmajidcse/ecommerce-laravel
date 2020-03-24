@@ -34,7 +34,13 @@ Route::prefix('/admin')->group(function(){
 
     //authenticate routes are here
     Route::middleware(['auth:admin'])->group(function (){
+        //admin profile routes are here
         Route::get('/', 'admin\AdminController@index')->name('admin.dashboard');
+        Route::get('/profile', 'admin\AdminController@profile')->name('admin.profile');
+        Route::get('/edit-profile/{id}', 'admin\AdminController@edit')->name('admin.editProfile');
+        Route::post('/update-profile/{id}', 'admin\AdminController@update')->name('admin.updateProfile');
+        Route::get('/change-password', 'admin\AdminController@changePassword')->name('admin.changePassword');
+        Route::post('/update-password/', 'admin\AdminController@updatePassword')->name('admin.updatePassword');
 
         //category crud are here
         Route::prefix('/categories')->group(function(){
@@ -93,6 +99,7 @@ Route::prefix('/admin')->group(function(){
             Route::get('/delete/{id}', 'admin\OrdersController@destroy')->name('admin.orders.delete');
             Route::get('/complete/{id}', 'admin\OrdersController@complete')->name('admin.orders.complete');
             Route::get('/paid/{id}', 'admin\OrdersController@paid')->name('admin.orders.paid');
+            Route::get('/invoice/{id}', 'admin\OrdersController@invoice')->name('admin.orders.invoice');
         });
 
         //slider crud are here
@@ -101,8 +108,6 @@ Route::prefix('/admin')->group(function(){
             Route::get('/add', 'admin\SliderController@create');
             Route::post('/store', 'admin\SliderController@store');
             Route::get('/delete/{id}', 'admin\SliderController@destroy');
-            Route::get('/edit/{id}', 'admin\SliderController@edit');
-            Route::post('/update/{id}', 'admin\SliderController@update');
         });
     });
 

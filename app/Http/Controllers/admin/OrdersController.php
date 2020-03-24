@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Order;
+use PDF;
 
 class OrdersController extends Controller
 {
@@ -85,6 +86,18 @@ class OrdersController extends Controller
 
         return redirect()->back()->with($notification);
 
+    }
+
+    /**
+     * dom pdf invoice
+     **/
+    public function invoice($id)
+    {
+        $order = Order::find($id);
+        // return view('admin.pages.orders.invoice', ['order' => $order]);
+        $pdf = PDF::loadView('admin.pages.orders.invoice', ['order' => $order]);
+        // return $pdf->stream();
+        return $pdf->download($order->name . '-invoice.pdf');
     }
 
 }

@@ -100,4 +100,25 @@ class OrdersController extends Controller
         return $pdf->download($order->name . '-invoice.pdf');
     }
 
+    public function destroy($id)
+    {
+        $order = Order::find($id);
+        if (!empty($order)) {
+            foreach ($order->carts as $cart) {
+                $cart->delete();
+            }
+            $order->delete();
+            $notification = [
+                'message' => 'Successfully order deleted!',
+                'alert-type' => 'success',
+            ];
+        } else {
+            $notification = [
+                'message' => 'Something went wrong!',
+                'alert-type' => 'error',
+            ];
+        }
+        return redirect()->back()->with($notification);
+    }
+
 }

@@ -109,6 +109,26 @@ Route::prefix('/admin')->group(function(){
             Route::post('/store', 'admin\SliderController@store');
             Route::get('/delete/{id}', 'admin\SliderController@destroy');
         });
+
+        //settings routes
+        Route::prefix('/settings')->group(function(){
+            Route::get('/', 'admin\SettingsController@index');
+            Route::get('/add', 'admin\SettingsController@create');
+            Route::post('/store', 'admin\SettingsController@store');
+            Route::get('/edit/{id}', 'admin\SettingsController@edit');
+            Route::post('/update/{id}', 'admin\SettingsController@update');
+        });
+
+        //payment systems routes
+        Route::prefix('/payment-systems')->group(function(){
+            Route::get('/', 'admin\PaymentSystemsController@index');
+            Route::get('/add', 'admin\PaymentSystemsController@create');
+            Route::post('/store', 'admin\PaymentSystemsController@store');
+            Route::get('/edit/{id}', 'admin\PaymentSystemsController@edit');
+            Route::post('/update/{id}', 'admin\PaymentSystemsController@update');
+            Route::get('/delete/{id}', 'admin\PaymentSystemsController@destroy');
+        });
+
     });
 
 });

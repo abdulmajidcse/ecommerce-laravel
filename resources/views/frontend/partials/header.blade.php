@@ -10,6 +10,8 @@
 
     @include('frontend.partials.styles')
 
+    <link rel="shortcut icon" href="{{ URL::to(App\Settings::get()->first()->logo) }}" type="image/png" />
+
 </head>
 <body>
     <div class="container-fluid">
@@ -22,12 +24,24 @@
                         <div class="row">
                             <div class="col-auto mr-auto">
                                 <ul class="top-nav">
-                                    <li>
-                                        <a href="tel:+8801700000000"><i class="fa fa-phone-square mr-2"></i>+8801700000000</a>
-                                    </li>
-                                    <li>
-                                        <a href="mailto:example@gmail.com"><i class="fa fa-envelope mr-2"></i>example@gmail.com</a>
-                                    </li>
+                                    @php
+                                        $settings = App\Settings::get()->first();
+                                    @endphp
+                                    @if (!empty($settings))
+                                        <li>
+                                            <a href="tel:+88{{ $settings->phone }}"><i class="fa fa-phone-square mr-2"></i>+88{{ $settings->phone }}</a>
+                                        </li>
+                                        <li>
+                                            <a href="mailto:{{ $settings->email }}"><i class="fa fa-envelope mr-2"></i>{{ $settings->email }}</a>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a href="tel:+8801XXXXXXXXX"><i class="fa fa-phone-square mr-2"></i>+8801XXXXXXXXX</a>
+                                        </li>
+                                        <li>
+                                            <a href="mailto:example@gmail.com"><i class="fa fa-envelope mr-2"></i>example@gmail.com</a>
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                             <div class="col-auto">
@@ -78,7 +92,17 @@
                         <div class="row">
                             <div class="col-lg-auto">
                                 <div class="site-logo text-center text-lg-left">
-                                    <a href="{{ url('/') }}">Web Brand</a>
+                                    <a href="{{ url('/') }}">
+                                        @php
+                                            $settings = App\Settings::get()->first();
+                                        @endphp
+                                        @if (!empty($settings))
+                                            <img src="{{ URL::to($settings->logo) }}" style="width: 40px;" class="rounded-circle" alt="">
+                                            {{ ' ' . $settings->name }}
+                                        @else
+                                            <i class="fas fa-home"></i> E-commerce
+                                        @endif
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-lg-5 mx-auto mt-4 mt-lg-0">

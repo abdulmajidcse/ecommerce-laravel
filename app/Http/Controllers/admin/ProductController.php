@@ -46,7 +46,7 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:50',
-            'description' => 'required|max:300',
+            'description' => 'required',
             'category_id' => 'required|min:1',
             'brand_id' => 'required|min:1',
             'slug' => 'required|unique:products|min:1|max:50',
@@ -142,7 +142,7 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:50',
-            'description' => 'required|max:300',
+            'description' => 'required',
             'category_id' => 'required|min:1',
             'brand_id' => 'required|min:1',
             'slug' => 'required|min:1|max:50',

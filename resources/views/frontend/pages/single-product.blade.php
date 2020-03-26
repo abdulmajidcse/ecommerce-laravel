@@ -49,7 +49,7 @@
                                     <hr>
                                 </div>
                                 <div class="col-12">
-                                    {{ $product->description }}
+                                    {!! $product->description !!}
 
                                     <p>In Stock: {{ $product->quantity }}</p>
                                 </div>

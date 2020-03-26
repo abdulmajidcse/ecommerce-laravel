@@ -3,10 +3,21 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/admin') }}">
-                <div class="sidebar-brand-icon">
-                    <i class="fas fa-home"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">E-commerce</div>
+                @php
+                    $settings = App\Settings::get()->first();
+                @endphp
+                @if (!empty($settings))
+                    <div class="sidebar-brand-icon">
+                        <img src="{{ URL::to($settings->logo) }}" style="width: 40px;" class="rounded-circle" alt="">
+                    </div>
+                    <div class="sidebar-brand-text mx-3">{{ $settings->name }}</div>
+                @else
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">E-commerce</div>
+                @endif
+                
             </a>
 
             <!-- Divider -->
@@ -98,7 +109,7 @@
             <!-- order menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#order-menu" aria-expanded="true" aria-controls="order-menu">
-                    <i class="fas fa-building"></i>
+                    <i class="fas fa-shopping-cart"></i>
                     <span>Order</span>
                 </a>
                 <div id="order-menu" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -111,7 +122,7 @@
             <!-- slider menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#slider-menu" aria-expanded="true" aria-controls="order-menu">
-                    <i class="fas fa-building"></i>
+                    <i class="fas fa-sliders-h"></i>
                     <span>Slider</span>
                 </a>
                 <div id="slider-menu" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">

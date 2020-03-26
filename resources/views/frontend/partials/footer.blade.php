@@ -7,14 +7,31 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="footer-logo">
-                                            <a href="{{ url('/') }}">E-Commerce</a>
+                                            <a href="{{ url('/') }}">
+                                                @php
+                                                    $settings = App\Settings::get()->first();
+                                                @endphp
+                                                @if (!empty($settings))
+                                                    <img src="{{ URL::to($settings->logo) }}" style="width: 40px;" class="rounded-circle" alt="">
+                                                    {{ ' ' . $settings->name }}
+                                                @else
+                                                    <i class="fas fa-home"></i> E-commerce
+                                                @endif
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <address>
-                                            221B Baker Street<br>
-                                            London, England
-                                        </address>
+                                        @php
+                                            $settings = App\Settings::get()->first();
+                                        @endphp
+                                        @if (!empty($settings))
+                                            <address>
+                                                {{ $settings->address }}
+                                            </address>
+                                        @else
+                                            {{ 'Company Address' }}
+                                        @endif
+                                        
                                     </div>
                                     <div class="col-12">
                                         <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
@@ -31,9 +48,9 @@
                                         <h4>Payment Methods</h4>
                                     </div>
                                     <div class="col-12">
-                                        @if(App\Payment::all())
+                                        @if(!empty(App\Payment::all()))
                                             @foreach(App\Payment::orderBy('priority', 'asc')->get() as $payment)
-                                            {{ $payment->name }} <br/>
+                                            <img src="{{ URL::to($payment->image) }}" style="width: 35px;" class="rounded-circle" alt="">{{ ' ' . $payment->name }} <br/>
                                             @endforeach
                                         @else
                                             {{ 'Not Available!' }}

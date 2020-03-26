@@ -115,6 +115,7 @@
                                     <hr class="my-4">
                                     <p>You can also add, edit, delete everything here.</p>
                                     <a class="btn btn-primary btn-lg" href="{{ url('/admin/profile') }}" role="button">Go to Profile</a>
+                                    <a class="btn btn-primary btn-lg" href="{{ url('/admin/settings') }}" role="button">Change Settings</a>
                                     </div> <!-- end of admin dashboard main content -->
                                 </div>
                             </div>

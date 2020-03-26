@@ -43,7 +43,7 @@
                                                 <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
 
                                                 <div class="col-md-6">
-                                                    <input type="text" id="description" class="form-control @error('description') is-invalid @enderror" name="description">
+                                                    <textarea name="description" id="editor" cols="30" rows="10" class="form-control @error('description') is-invalid @enderror" required=""></textarea>
                                                     @error('description')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror

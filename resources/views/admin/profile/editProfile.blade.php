@@ -29,7 +29,11 @@
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <img src="{{ url(Auth::user()->image) }}" class="rounded-circle img-fluid" alt="Admin Image">
+                                    @if (empty(Auth::user()->image))
+                                        <i class="fas fa-user-shield" style="font-size:100px;"></i>
+                                    @else
+                                        <img src="{{ URL::to(Auth::user()->image) }}" class="rounded-circle" style="width: 200px;" alt="Admin Image">
+                                    @endif
                                     
                                 </div>
                                 <div class="card-footer">
@@ -93,7 +97,9 @@
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                                 
-                                                <img src="{{ url($admin->image) }}" alt="Admin Image" style="width: 100px;" class="mt-2">
+                                                @if (!empty($admin->image))
+                                                    <img src="{{ URL::to($admin->image) }}" style="width: 100px;" class="mt-2">
+                                                @endif
 
                                             </div>
 

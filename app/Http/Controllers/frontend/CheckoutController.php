@@ -46,8 +46,8 @@ class CheckoutController extends Controller
         } else {
             $paymentMethod = Payment::find($payment_method_id);
             if (!is_null($paymentMethod)) {
-                $short_name = $paymentMethod->short_name;
-                if ($short_name == "cash_in") {
+                $no = $paymentMethod->no;
+                if (empty($no)) {
                     echo "<div class='alert alert-success mt-3'><h4>For Cash in, there is nothing necessary. Just click Finish Order.</h4><small>You will get your product in two or three business days.</small></div>";
                 } else {
                     echo "<div class='alert alert-success mt-3'><h4>$paymentMethod->name Payment</h4><p><strong>$paymentMethod->name No: $paymentMethod->no</strong><br/><strong>Account Type: $paymentMethod->type</strong></p><p>Please, send the above money to this bKash No and write your transaction code below there.</p><input type='text' name='transaction_id' class='form-control' placeholder='Transaction ID'></div>";

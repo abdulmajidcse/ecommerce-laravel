@@ -10,6 +10,9 @@
 
     @include('admin.partials.styles')
 
+    <link rel="shortcut icon" href="{{ URL::to(App\Settings::get()->first()->logo) }}" type="image/png" />
+    
+
 </head>
 
 <body>

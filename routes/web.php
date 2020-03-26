@@ -129,6 +129,12 @@ Route::prefix('/admin')->group(function(){
             Route::get('/delete/{id}', 'admin\PaymentSystemsController@destroy');
         });
 
+        //subscriber view and delete routes
+        Route::prefix('/subscribers')->group(function(){
+            Route::get('/', 'admin\SubscriberController@index');
+            Route::get('/delete/{id}', 'admin\SubscriberController@destroy');
+        });
+
     });
 
 });
@@ -197,5 +203,7 @@ Route::prefix('/checkout')->group(function(){
 	Route::post('/confirm', 'frontend\CheckoutController@store');
 });
 
+//add new subscriber 
+Route::post('/subscriber/store', 'admin\SubscriberController@store');
 
 

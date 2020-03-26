@@ -116,9 +116,14 @@
                                         <h4>Get Updates</h4>
                                     </div>
                                     <div class="col-12">
-                                        <form action="#">
+                                        <form action="{{ URL::to('subscriber/store') }}" method="POST" class="was-validated">
+                                            @csrf
+                                            
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Enter your email..." required>
+                                                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Enter your email..." required>
+                                                @error('email')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="form-group">
                                                 <button class="btn btn-outline-light text-uppercase">Subscribe</button>

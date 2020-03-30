@@ -133,6 +133,20 @@
                 </div>
             </li> <!-- end of slider menu -->
 
+            <!-- custom page menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#custom-page-menu" aria-expanded="true" aria-controls="custom-page-menu">
+                    <i class="fas fa-pager"></i>
+                    <span>Custom Page</span>
+                </a>
+                <div id="custom-page-menu" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ url('/admin/custom-pages/add') }}">Add page</a>
+                        <a class="collapse-item" href="{{ url('/admin/custom-pages') }}">All page</a>
+                    </div>
+                </div>
+            </li> <!-- end of custom page menu -->
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

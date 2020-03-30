@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Brand;
 use App\Product;
+use App\CustomPages;
 
 class PagesController extends Controller
 {
@@ -115,5 +116,19 @@ class PagesController extends Controller
     		return redirect()->route('home')->with($notification);
     	}
     	
+    }
+
+    public function customPageShow($slug)
+    {
+        $custom_page = CustomPages::where('slug', $slug)->get()->first();
+        if ($custom_page) {
+            return view('frontend.pages.custom_page', ['custom_page' => $custom_page]);
+        } else {
+            $notification = [
+                'message' => 'Something went wrong!',
+                'alert-type' => 'error',
+            ];
+            return redirect()->back()->with($notification);
+        }
     }
 }

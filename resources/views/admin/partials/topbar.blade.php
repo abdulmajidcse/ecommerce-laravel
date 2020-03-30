@@ -153,6 +153,9 @@
                                 <a class="dropdown-item" href="{{ URL::to('admin/subscribers') }}">
                                     <i class="fas fa-ticket-alt fa-sm fa-fw mr-2 text-gray-400"></i> Subscribers
                                 </a>
+                                <a class="dropdown-item" href="{{ URL::to('admin/social-contacts') }}">
+                                    <i class="far fa-address-card fa-sm fa-fw mr-2 text-gray-400"></i> Social Contact
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout

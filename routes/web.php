@@ -135,6 +135,27 @@ Route::prefix('/admin')->group(function(){
             Route::get('/delete/{id}', 'admin\SubscriberController@destroy');
         });
 
+        //custom pages routes
+        Route::prefix('/custom-pages')->group(function(){
+            Route::get('/', 'admin\CustomPageController@index');
+            Route::get('/add', 'admin\CustomPageController@create');
+            Route::post('/store', 'admin\CustomPageController@store');
+            Route::get('/edit/{id}', 'admin\CustomPageController@edit');
+            Route::get('/view/{id}', 'admin\CustomPageController@show');
+            Route::post('/update/{id}', 'admin\CustomPageController@update');
+            Route::get('/delete/{id}', 'admin\CustomPageController@destroy');
+        });
+
+        //social contact routes
+        Route::prefix('/social-contacts')->group(function(){
+            Route::get('/', 'admin\SocialContactController@index');
+            Route::get('/add', 'admin\SocialContactController@create');
+            Route::post('/store', 'admin\SocialContactController@store');
+            Route::get('/edit/{id}', 'admin\SocialContactController@edit');
+            Route::post('/update/{id}', 'admin\SocialContactController@update');
+            Route::get('/delete/{id}', 'admin\SocialContactController@destroy');
+        });
+
     });
 
 });
@@ -205,5 +226,8 @@ Route::prefix('/checkout')->group(function(){
 
 //add new subscriber 
 Route::post('/subscriber/store', 'admin\SubscriberController@store');
+
+//custom pages show route
+Route::get('page/{slug}', 'frontend\PagesController@customPageShow');
 
 

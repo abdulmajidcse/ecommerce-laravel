@@ -16,7 +16,9 @@ class CreateCustomPagesTable extends Migration
         Schema::create('custom_pages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->image('image');
+            $table->string('slug');
+            $table->unsignedInteger('type')->default(1)->comment('1=quick link page,2=help page');
+            $table->string('image')->nullable();
             $table->text('content');
             $table->timestamps();
         });

@@ -11,21 +11,18 @@
     <!-- sweetalert js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js" integrity="sha256-JirYRqbf+qzfqVtEE4GETyHlAbiCpC005yBTa4rj6xg=" crossorigin="anonymous"></script>
 
-    <!--ckeditor-->
-    <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
+    <script src="http://tinymce.cachefly.net/4.0/tinymce.min.js"></script>
 
     <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
 
-    <script type="text/javascript">
 
-      ClassicEditor
-      .create( document.querySelector( '#editor' ) )
-      .then( editor => {
-              console.log( editor );
-      } )
-      .catch( error => {
-              console.error( error );
-      } );
+    <script type="application/x-javascript">
+
+    tinymce.init({selector:'.tinymce-editor'});
+
+    </script>
+
+    <script type="text/javascript">
 
         //form submit message**********
         @if(Session::has('message'))

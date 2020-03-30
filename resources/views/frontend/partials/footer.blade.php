@@ -34,11 +34,13 @@
                                         
                                     </div>
                                     <div class="col-12">
-                                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                                        <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
-                                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                                        @if (!is_null(App\SocialContact::orderBy('priority', 'asc')->get()))
+                                            @foreach (App\SocialContact::orderBy('priority', 'asc')->get() as $social_contact)
+                                                <a href="{{ $social_contact->social_url }}" class="social-icon" target="_blank"><img src="{{ URL::to($social_contact->icon) }}" style="width: 20px;" class="rounded" alt="social link"></a>
+                                            @endforeach
+                                            
+                                        @endif
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -65,21 +67,16 @@
                                     </div>
                                     <div class="col-12">
                                         <ul class="footer-nav">
+                                            @foreach (App\CustomPages::all() as $page)
                                             <li>
-                                                <a href="#">Home</a>
+                                                
+                                                @if ($page->type == 1)
+                                                    <a href="{{ URL::to('page/'.$page->slug) }}">{{ $page->name }}</a>
+                                                @endif
+                                                
                                             </li>
-                                            <li>
-                                                <a href="#">Contact Us</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">About Us</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Privacy Policy</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Terms & Conditions</a>
-                                            </li>
+                                            @endforeach
+                                            
                                         </ul>
                                     </div>
                                 </div>
@@ -91,21 +88,15 @@
                                     </div>
                                     <div class="col-12">
                                         <ul class="footer-nav">
+                                            @foreach (App\CustomPages::all() as $page)
                                             <li>
-                                                <a href="#">FAQs</a>
+                                                
+                                                @if ($page->type == 2)
+                                                    <a href="{{ URL::to('page/'.$page->slug) }}">{{ $page->name }}</a>
+                                                @endif
+                                                
                                             </li>
-                                            <li>
-                                                <a href="#">Shipping</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Returns</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Track Order</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Report Fraud</a>
-                                            </li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>

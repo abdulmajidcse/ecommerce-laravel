@@ -8,7 +8,17 @@ class Product extends Model
 {
 	//fillable array
 	protected $fillable = [
-		'admin_id', 'category_id', 'brand_id', 'title', 'description', 'slug', 'quantity', 'price', 'status', 'offer_price'
+		'admin_id',
+        'category_id',
+        'brand_id',
+        'title',
+        'short_details',
+        'full_details',
+        'slug',
+        'quantity',
+        'price',
+        'status',
+        'offer_price'
 	];
 
     public function productImages(){

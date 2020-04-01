@@ -15,22 +15,41 @@
     <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
 
     <script type="text/javascript">
+      toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+          }
+
         //form submit message**********
         @if(Session::has('message'))
           var type = "{{ Session::get('alert-type') }}";
           switch(type){
             case 'success':
-              toastr["success"]("{{ Session::get('message') }}", "Success!");
+              toastr["success"]("{{ Session::get('message') }}");
               break;
             case 'info':
-              toastr["info"]("{{ Session::get('message') }}", "Information!");
+              toastr["info"]("{{ Session::get('message') }}");
               break;
             case 'warning':
-              toastr["warning"]("{{ Session::get('message') }}", "Warning!");
+              toastr["warning"]("{{ Session::get('message') }}");
               break;
             case 'error':
-              toastr["error"]("{{ Session::get('message') }}", "Error!");
+              toastr["error"]("{{ Session::get('message') }}");
           }
+
         @endif //end of form submit message**********
 
         $.ajaxSetup({
@@ -45,7 +64,7 @@
           .done(function( data ) {
             data = JSON.parse(data);
             $('.cart-items').html(data.items);
-            toastr["success"](data.message, "Success!");
+            toastr["success"](data.message);
           })
           .fail(function() {
             alert( "Something went wrong!" );

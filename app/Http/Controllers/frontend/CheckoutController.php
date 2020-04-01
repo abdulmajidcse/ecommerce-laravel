@@ -8,6 +8,7 @@ use Auth;
 use App\Cart;
 use App\Payment;
 use App\Order;
+use App\Product;
 
 class CheckoutController extends Controller
 {
@@ -16,17 +17,16 @@ class CheckoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (Auth::check()) {
-            $carts = Cart::where('user_id', Auth::id())->get();
-        } else {
-            $carts = Cart::where('user_id', NULL)->where('ip_address', Request()->ip())->get();
-        }
-
-        if (count($carts) > 0) {
+        if ($request->session()->has('carts')) {
+            $carts = $request->session()->get('carts');
+            $products = array();
+            foreach ($carts as $cart_item) {
+                $products[] = Product::find($cart_item['product_id']);
+            }
             $paymentMethods = Payment::orderBy('priority', 'asc')->get();
-            return view('frontend.pages.checkout', compact('carts', 'paymentMethods'));   
+            return view('frontend.pages.checkout', compact('carts', 'products', 'paymentMethods'));   
         } else {
             $notification = [
                 'message' => 'Something went wrong!',
@@ -81,37 +81,75 @@ class CheckoutController extends Controller
             'shipping_address' => 'required|string|max:500',
             'message' => 'max:500',
             'payment_method_id' => 'required|numeric',
+            'transaction_id' => 'nullable',
         ],
         [
             'payment_method_id.required' => 'Please, select a payment method!',
             'payment_method_id.numeric' => 'Please, select a payment method!',
         ]);
 
-        $order = new Order();
-        if (Auth::check()) {
-            $order->user_id = Auth::id();
+        //if carts has in session
+        if ($request->session()->has('carts')) {
+            $carts = $request->session()->get('carts');
+            //check product quantity if available
+            foreach ($carts as $cart_item) {
+                $product = Product::find($cart_item['product_id']);
+                //if product quantity not available, store message in $product_stock variable
+                if ($product->quantity < $cart_item['product_quantity']) {
+                    $product_stock['stock'][] = [
+                        'product_name' => $product->title,
+                        'product_quantity' => $product->quantity,
+                    ];
+                }
+            }
+            //if isset $product_stock, redirect back and show product quantity decreament message
+            if (isset($product_stock)) {
+                return redirect('carts')->with($product_stock);
+            } else {
+                //if product quantity is available, store data in Order table
+                $order = new Order();
+                if (Auth::check()) {
+                    $order->user_id = Auth::user()->id;
+                }
+                $order->payment_id = $request->payment_method_id;
+                $order->ip_address = $request->ip();
+                $order->name = $request->name;
+                $order->phone = $request->phone;
+                $order->shipping_address = $request->shipping_address;
+                $order->email = $request->email;
+                $order->message = $request->message;
+                $order->transaction_id = $request->transaction_id;
+                $order->save();
+                //now store cart items in Cart table
+                foreach ($carts as $cart_item) {
+                    $cart = new Cart();
+                    $cart->product_id = $cart_item['product_id'];
+                    if (Auth::check()) {
+                        $cart->user_id = Auth::user()->id;
+                    }
+                    $cart->order_id = $order->id;
+                    $cart->ip_address = $cart_item['ip_address'];
+                    $cart->product_quantity = $cart_item['product_quantity'];
+                    $cart->save();
+                    //decreament product quantity
+                    $product = Product::find($cart->product_id);
+                    $product->quantity -= $cart->product_quantity;
+                    $product->save();
+                }
+                $request->session()->forget('carts');
+                $notification = [
+                    'message' => 'Order confirmed! Please, wait for admin confirmation.',
+                    'alert-type' => 'success'
+                ];
+                return redirect()->route('home')->with($notification);
+            }
+        } else {
+            $notification = [
+                'message' => 'Something went wrong!',
+                'alert-type' => 'error'
+            ];
+            return redirect()->back()->with($notification);
         }
-        $order->ip_address = request()->ip();
-        $order->name = $request->name;
-        $order->phone = $request->phone;
-        $order->shipping_address = $request->shipping_address;
-        $order->email = $request->email;
-        $order->message = $request->message;
-        $order->transaction_id = $request->transaction_id;
-        $order->payment_id = $request->payment_method_id;
-        $order->save();
-
-        foreach (Cart::totalCart() as $cart) {
-            $cart->order_id = $order->id;
-            $cart->save();
-        }
-
-        $notification = [
-            'message' => 'Order confirmed! Please, wait for admin confirmation.',
-            'alert-type' => 'success'
-        ];
-
-        return redirect()->route('home')->with($notification);
     }
 
     /**

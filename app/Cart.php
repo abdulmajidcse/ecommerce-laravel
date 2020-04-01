@@ -27,24 +27,4 @@ class Cart extends Model
     {
     	return $this->belongsTo(Order::class);
     }
-
-    public static function totalCart()
-    {
-        $cart = Cart::orWhere('user_id', Auth::id())
-                ->where('ip_address', Request()->ip())
-                ->where('order_id', NULL)
-                ->get();
-        return $cart;
-
-    }
-
-    public static function totalItems()
-    {
-        $cart = Cart::orWhere('user_id', Auth::id())
-                ->where('ip_address', Request()->ip())
-                ->where('order_id', NULL)
-                ->sum('product_quantity');
-        return $cart;
-
-    }
 }

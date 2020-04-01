@@ -40,11 +40,22 @@
 
                                             
                                             <div class="form-group row">
-                                                <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
+                                                <label for="short_details" class="col-md-4 col-form-label text-md-right">Short details</label>
 
                                                 <div class="col-md-6">
-                                                    <textarea name="description" id="editor" cols="30" rows="10" class="form-control @error('description') is-invalid @enderror" required="">{!! $product->description !!}</textarea>
-                                                    @error('description')
+                                                    <textarea name="short_details" id="editor" class="form-control @error('short_details') is-invalid @enderror" required="">{!! $product->short_details !!}</textarea>
+                                                    @error('short_details')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="full_details" class="col-md-4 col-form-label text-md-right">Full details</label>
+
+                                                <div class="col-md-6">
+                                                    <textarea name="full_details" id="editor" class="form-control @error('full_details') is-invalid @enderror" required="">{!! $product->full_details !!}</textarea>
+                                                    @error('full_details')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
@@ -63,7 +74,7 @@
                                                             >{{ $parent->name }}</option>
                                                             @foreach(App\Category::orderBy('name', 'asc')->where('parent_id', $parent->id)->get() as $child)
                                                                 <option value="{{ $child->id }}"
-                                                                @if($parent->id == $product->category_id)
+                                                                @if($child->id == $product->category_id)
                                                                     {{ 'selected' }}
                                                                 @endif
                                                                 > ---> {{ $child->name }}</option>

@@ -35,25 +35,29 @@
                                                     <tbody>
                                                         @php
                                                             $totalPrice = 0;
+                                                            $i = 0;
                                                         @endphp
-                                                        @foreach ($carts as $cart)
+                                                        @foreach ($carts as $cart_id => $cart)
                                                         @php
-                                                            $totalPrice += $cart->product->price * $cart->product_quantity;
+                                                            $totalPrice += $products[$i]->price * $cart['product_quantity'];
                                                         @endphp
 
                                                             <tr>
                                                                 <td>
-                                                                    <img src="{{ url($cart->product->productImages->first()->name) }}" class="img-fluid">
-                                                                    <h6>{{ $cart->product->title}}</h6>
+                                                                    <img src="{{ URL::to($products[$i]->productImages->first()->name) }}" class="img-fluid">
+                                                                    <h6>{{ $products[$i]->title}}</h6>
                                                                 </td>
                                                                 <td>
-                                                                    Tk {{ $cart->product->price}}
+                                                                    Tk {{ $products[$i]->price}}
                                                                 </td>
-                                                                <td>{{ $cart->product_quantity}}</td>
+                                                                <td>{{ $cart['product_quantity'] }}</td>
                                                                 <td>
-                                                                    Tk {{ $cart->product->price * $cart->product_quantity}}
+                                                                    Tk {{ $products[$i]->price * $cart['product_quantity'] }}
                                                                 </td>
                                                             </tr>
+                                                            @php
+                                                                ++$i;
+                                                            @endphp
                                                         @endforeach
                                                     </tbody>
                                                     <tfoot>
@@ -62,7 +66,7 @@
                                                         <th>Tk {{ $totalPrice }}</th>
                                                     </tr>
                                                     <tr>
-                                                        <th colspan="3" class="text-right">Total price with shipping cost = </th>
+                                                        <th colspan="3" class="text-right">Total price with shipping cost (+{{ App\Settings::first()->shipping_cost }}) = </th>
                                                         <th>Tk {{ $totalPrice + App\Settings::first()->shipping_cost }}</th>
                                                     </tr>
                                                     </tfoot>
@@ -113,7 +117,7 @@
                                                         <label for="shipping_address" class="col-md-4 col-form-label text-md-right">Shipping Address</label>
 
                                                         <div class="col-md-6">
-                                                            <textarea id="shipping_address" class="form-control @error('shipping_address') is-invalid @enderror" name="shipping_address" required="">{{ Auth::check() ? Auth::user()->shipping_address : '' }}</textarea>
+                                                            <textarea id="shipping_address" class="form-control @error('shipping_address') is-invalid @enderror" name="shipping_address" required="">{{ Auth::check() ? Auth::user()->street_address : '' }}</textarea>
                                                             @error('shipping_address')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror

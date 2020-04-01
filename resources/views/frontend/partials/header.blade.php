@@ -119,7 +119,20 @@
                             </div>
                             <div class="col-lg-auto text-center text-lg-left header-item-holder">
                                 <a href="{{ url('/carts') }}" class="header-item">
-                                    <i class="fas fa-shopping-bag mr-2"></i><span id="header-qty" class="mr-3 cart-items">{{ App\Cart::totalItems() }}
+                                    <i class="fas fa-shopping-bag mr-2"></i><span id="header-qty" class="mr-3 cart-items">
+                                        @if (Session::has('carts'))
+                                            @php
+                                                $cart_items = NULL;
+                                            @endphp
+                                            @foreach (Session::get('carts') as $cart_item)
+                                                @php
+                                                    $cart_items += $cart_item['product_quantity']
+                                                @endphp
+                                            @endforeach
+                                            {{ $cart_items }}
+                                        @else
+                                            {{ 0 }}
+                                        @endif
                                     </span>
                                 </a>
                             </div>

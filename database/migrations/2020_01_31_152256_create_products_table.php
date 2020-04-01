@@ -19,7 +19,8 @@ class CreateProductsTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->integer('brand_id')->unsigned();
             $table->string('title');
-            $table->text('description');
+            $table->text('short_details');
+            $table->text('full_details');
             $table->string('slug');
             $table->integer('quantity')->unsigned()->default(1);
             $table->double('price');

@@ -45,13 +45,15 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|max:50',
-            'description' => 'required',
+            'title' => 'required|max:100',
+            'short_details' => 'required',
+            'full_details' => 'required',
             'category_id' => 'required|min:1',
             'brand_id' => 'required|min:1',
-            'slug' => 'required|unique:products|min:1|max:50',
+            'slug' => 'required|unique:products|min:1|max:100',
             'quantity' => 'required|numeric|min:1',
             'price' => 'required|numeric|min:1',
+            'offer_price' => 'nullable|numeric|min:1',
             'image.*' => 'mimes:jpg,jpeg,png|max:4000',
         ]);
 
@@ -59,7 +61,8 @@ class ProductController extends Controller
 
         $product->admin_id = 1;
         $product->title = $request->title;
-        $product->description = $request->description;
+        $product->short_details = $request->short_details;
+        $product->full_details = $request->full_details;
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
         $product->slug = $request->slug;
@@ -142,12 +145,14 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:50',
-            'description' => 'required',
+            'short_details' => 'required',
+            'full_details' => 'required',
             'category_id' => 'required|min:1',
             'brand_id' => 'required|min:1',
             'slug' => 'required|min:1|max:50',
             'quantity' => 'required|numeric|min:1',
             'price' => 'required|numeric|min:1',
+            'offer_price' => 'nullable|numeric|min:1',
             'image.*' => 'mimes:jpg,jpeg,png|max:4000',
         ]);
 
@@ -155,7 +160,8 @@ class ProductController extends Controller
 
         $product->admin_id = 1;
         $product->title = $request->title;
-        $product->description = $request->description;
+        $product->short_details = $request->short_details;
+        $product->full_details = $request->full_details;
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
         $product->slug = $request->slug;

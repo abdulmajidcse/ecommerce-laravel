@@ -4,7 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Cart;
+use App\Product;
 use Auth;
 
 class CartController extends Controller
@@ -14,16 +14,15 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (Auth::check()) {
-            $carts = Cart::where('user_id', Auth::id())->where('order_id', NULL)->where('order_id', NULL)->get();
-        } else {
-            $carts = Cart::where('user_id', NULL)->where('ip_address', Request()->ip())->where('order_id', NULL)->where('order_id', NULL)->get();
-        }
-
-        if (count($carts) > 0) {
-            return view('frontend.pages.cart', compact('carts'));   
+        if ($request->session()->has('carts')) {
+            $carts = $request->session()->get('carts');
+            $products = array();
+            foreach ($carts as $cart_item) {
+                $products[] = Product::find($cart_item['product_id']);
+            }
+            return view('frontend.pages.cart', ['carts' => $carts, 'products' => $products]);  
         } else {
             $notification = [
                 'message' => 'Cart is empty!',
@@ -31,6 +30,7 @@ class CartController extends Controller
             ];
             return redirect()->route('home')->with($notification);
         }
+        
     }
 
     /**
@@ -51,33 +51,51 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $cart = Cart::orWhere('user_id', Auth::id())
-                ->where('ip_address', $request->ip())
-                ->where('product_id', $request->id)
-                ->where('order_id', NULL)
-                ->first();
 
-        if (!is_null($cart)) {
-            $cart->increment('product_quantity');
+        //set a array
+        $data = ['carts' => array()];
 
+        //if cart item already exist
+        if ($request->session()->has('carts')) {
+            $data['carts'] = $request->session()->get('carts');
+            $request->session()->forget('carts');
+
+            //check product id
+            foreach ($data['carts'] as $cart_id => $cart_item) {
+                //if product id already exist, store id in $cart_array_id
+                if ($cart_item['product_id'] == $request->id) {
+                    $cart_array_id = $cart_id;
+                }
+            }
+
+            //if isset $cart_array_id, increament product_quantity
+            if (isset($cart_array_id)) {
+                $data['carts'][$cart_array_id]['product_quantity'] += 1;
+            } else {
+                $data['carts'][] = [
+                    'ip_address' => $request->ip(),
+                    'product_id' => $request->id,
+                    'product_quantity' => 1
+                ];
+            }
         } else {
-            $cart = new Cart();
-            if (Auth::check()) {
-                $cart->user_id = Auth::id();
-            }
-
-            if ($request->product_quantity) {
-                $cart->product_quantity = $request->product_quantity;
-            }
-
-            $cart->product_id = $request->id;
-            $cart->ip_address = $request->ip();
-            $cart->save();
+            $data['carts'][] = [
+                'ip_address' => $request->ip(),
+                'product_id' => $request->id,
+                'product_quantity' => 1
+            ];
+        }
+        
+        //store cart item in session
+        $request->session()->put($data);
+        $cart_items = NULL;
+        foreach ($data['carts'] as $cart_item) {
+            $cart_items += $cart_item['product_quantity'];
         }
 
         $notification = [
-            'message' => 'Product has added to cart. Total cart Items: ' . Cart::totalItems(),
-            'items' => Cart::totalItems(),
+            'message' => 'Product has added to cart. Total cart Items: ' . $cart_items,
+            'items' => $cart_items,
         ];
         return json_encode($notification);
     }
@@ -117,11 +135,12 @@ class CartController extends Controller
             'product_quantity' => 'required|numeric|min:1'
         ]);
 
-        $cart = Cart::find($id);
-
-        if (!is_null($cart)) {
-            $cart->product_quantity = $request->product_quantity;
-            $cart->save();
+        if ($request->session()->has('carts.'.$id)) {
+            $data = ['carts' => array()];
+            $data['carts'] = $request->session()->get('carts');
+            $request->session()->forget('carts');
+            $data['carts'][$id]['product_quantity'] = $request->product_quantity;
+            $request->session()->put($data);
             $notification = [
                 'message' => 'Product quantity added!',
                 'alert-type' => 'success',
@@ -141,12 +160,13 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //delete cart item
-        $cart = Cart::find($id);
-        if (!is_null($cart)) {
-            $cart->delete();
+        if ($request->session()->has('carts')) {
+            $request->session()->forget('carts.'.$id);
+            if ($request->session()->get('carts') == NULl) {
+                $request->session()->forget('carts');
+            }
             $notification = [
                 'message' => 'Successfully cart item deleted!',
                 'alert-type' => 'success'

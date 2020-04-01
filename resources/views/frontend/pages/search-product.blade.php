@@ -45,16 +45,22 @@
                                                     <a href="{{ url('/single-product/'.$product->slug) }}" class="product-name">{{ $product->title }}</a>
                                                 </div>
                                                 <div class="col-12 mb-3">
-                                                        <!-- <span class="product-price-old">
-                                                            $500
-                                                        </span> --->
-                                                    <br>
-                                                    <span class="product-price">
+                                                    @if ($product->offer_price > 0)
+                                                        <span class="product-price-old">
                                                             TK {{ $product->price }}
                                                         </span>
+                                                        <br>
+                                                        <span class="product-price">
+                                                            TK {{ $product->offer_price }}
+                                                        </span>
+                                                    @else
+                                                        <span class="product-price">
+                                                            TK {{ $product->price }}
+                                                        </span>
+                                                    @endif
                                                 </div>
                                                 <div class="col-12 mb-3 align-self-end">
-                                                    <button class="btn btn-outline-dark" type="button"><i class="fas fa-cart-plus mr-2"></i>Add to cart</button>
+                                                    @include('frontend.partials.cart-button')
                                                 </div>
                                             </div>
                                         </div>

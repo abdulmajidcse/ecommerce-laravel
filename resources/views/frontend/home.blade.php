@@ -5,11 +5,11 @@
 @endsection
 
 @section('content')
+
     
                 <div class="col-12">
                 <!-- Main Content -->
                 <main class="row">
-
                     @include('frontend.partials.slider')
 
                     <!-- Latest Product -->
@@ -48,13 +48,19 @@
                                                         <a href="{{ url('/single-product/'.$product->slug) }}" class="product-name">{{ $product->title }}</a>
                                                     </div>
                                                     <div class="col-12 mb-3">
-                                                        {{-- <span class="product-price-old">
-                                                            
-                                                        </span>
-                                                        <br> --}}
-                                                        <span class="product-price">
-                                                            TK {{ $product->price }}
-                                                        </span>
+                                                        @if ($product->offer_price > 0)
+                                                            <span class="product-price-old">
+                                                                TK {{ $product->price }}
+                                                            </span>
+                                                            <br>
+                                                            <span class="product-price">
+                                                                TK {{ $product->offer_price }}
+                                                            </span>
+                                                        @else
+                                                            <span class="product-price">
+                                                                TK {{ $product->price }}
+                                                            </span>
+                                                        @endif
                                                     </div>
                                                     <div class="col-12 mb-3 align-self-end">
                                                         @include('frontend.partials.cart-button')

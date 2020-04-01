@@ -102,7 +102,8 @@ class PagesController extends Controller
     	]);
     	$search = $request->search;
     	$products = Product::orWhere('title', 'like', '%'.$search.'%')
-    				->orWhere('description', 'like', '%'.$search.'%')
+    				->orWhere('short_details', 'like', '%'.$search.'%')
+                    ->orWhere('full_details', 'like', '%'.$search.'%')
     				->orWhere('slug', 'like', '%'.$search.'%')
     				->orWhere('price', 'like', '%'.$search.'%')
     				->orderBy('id', 'desc')->paginate(24);

@@ -24,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        
         $sliders = Slider::orderBy('priority', 'asc')->get();
         $products = Product::orderBy('id', 'desc')->limit(8)->get();
         return view('frontend.home', compact('products', 'sliders'));

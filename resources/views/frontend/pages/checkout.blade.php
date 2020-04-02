@@ -38,9 +38,16 @@
                                                             $i = 0;
                                                         @endphp
                                                         @foreach ($carts as $cart_id => $cart)
-                                                        @php
-                                                            $totalPrice += $products[$i]->price * $cart['product_quantity'];
-                                                        @endphp
+                                                        @if (is_null($products[$i]->offer_price))
+                                                            @php
+                                                                $totalPrice += $products[$i]->price * $cart['product_quantity'];
+                                                            @endphp
+                                                        
+                                                        @else
+                                                            @php
+                                                                $totalPrice += $products[$i]->offer_price * $cart['product_quantity'];
+                                                            @endphp
+                                                        @endif
 
                                                             <tr>
                                                                 <td>
@@ -48,11 +55,21 @@
                                                                     <h6>{{ $products[$i]->title}}</h6>
                                                                 </td>
                                                                 <td>
-                                                                    Tk {{ $products[$i]->price}}
+                                                                    Tk 
+                                                                    @if (is_null($products[$i]->offer_price))
+                                                                        {{ $products[$i]->price }}
+                                                                    @else
+                                                                        {{ $products[$i]->offer_price }}
+                                                                    @endif
                                                                 </td>
                                                                 <td>{{ $cart['product_quantity'] }}</td>
                                                                 <td>
-                                                                    Tk {{ $products[$i]->price * $cart['product_quantity'] }}
+                                                                    Tk 
+                                                                    @if (is_null($products[$i]->offer_price))
+                                                                        {{ $products[$i]->price * $cart['product_quantity'] }}
+                                                                    @else
+                                                                        {{ $products[$i]->offer_price * $cart['product_quantity'] }}
+                                                                    @endif
                                                                 </td>
                                                             </tr>
                                                             @php

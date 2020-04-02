@@ -24,6 +24,7 @@ class CreateOrdersTable extends Migration
             $table->string('email')->nullable();
             $table->text('message')->nullable();
             $table->string('transaction_id')->nullable();
+            $table->unsignedInteger('offer')->default(0)->comment('offer %');
             $table->boolean('is_paid')->default(0);
             $table->boolean('is_completed')->default(0);
             $table->boolean('is_seen_by_admin')->default(0);

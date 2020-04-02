@@ -60,17 +60,28 @@
                                                     $i = 0;
                                                 @endphp
                                                 @foreach ($carts as $cart_id => $cart)
-                                                    @php
-                                                        $totalPrice += $products[$i]->price * $cart['product_quantity'];
-                                                    @endphp
-
+                                                    @if (is_null($products[$i]->offer_price))
+                                                        @php
+                                                            $totalPrice += $products[$i]->price * $cart['product_quantity'];
+                                                        @endphp
+                                                        
+                                                    @else
+                                                        @php
+                                                            $totalPrice += $products[$i]->offer_price * $cart['product_quantity'];
+                                                        @endphp
+                                                    @endif
                                                     <tr>
                                                         <td>
                                                             <img src="{{ URL::to($products[$i]->productImages->first()->name) }}" class="img-fluid">
                                                             <h6>{{ $products[$i]->title}}</h6>
                                                         </td>
                                                         <td>
-                                                            Tk {{ $products[$i]->price}}
+                                                            Tk 
+                                                            @if (is_null($products[$i]->offer_price))
+                                                                {{ $products[$i]->price }}
+                                                            @else
+                                                                {{ $products[$i]->offer_price }}
+                                                            @endif
                                                         </td>
                                                         <td>
                                                             <form action="{{ url('/carts/update/'.$cart_id) }}" method="POST" class="was-validated">
@@ -81,7 +92,12 @@
                                                             
                                                         </td>
                                                         <td>
-                                                            Tk {{ $products[$i]->price * $cart['product_quantity'] }}
+                                                            Tk 
+                                                            @if (is_null($products[$i]->offer_price))
+                                                                {{ $products[$i]->price * $cart['product_quantity'] }}
+                                                            @else
+                                                                {{ $products[$i]->offer_price * $cart['product_quantity'] }}
+                                                            @endif
                                                         </td>
                                                         <td>
                                                             <a id="delete" href="{{ url('/carts/delete/'.$cart_id) }}" class="btn btn-link text-danger"><i class="fas fa-times"></i></a>

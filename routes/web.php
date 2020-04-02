@@ -96,6 +96,9 @@ Route::prefix('/admin')->group(function(){
         Route::prefix('/orders')->group(function(){
             Route::get('/', 'admin\OrdersController@index')->name('admin.orders');
             Route::get('/view/{id}', 'admin\OrdersController@show')->name('admin.orders.show');
+            Route::post('/cart/update/{id}', 'admin\OrdersController@cartUpdate')->name('admin.cart.update');
+            Route::post('/offer/{id}', 'admin\OrdersController@giveOffer');
+            Route::get('/cart/delete/{id}', 'admin\OrdersController@cartDestroy')->name('admin.orders.delete');
             Route::get('/delete/{id}', 'admin\OrdersController@destroy')->name('admin.orders.delete');
             Route::get('/complete/{id}', 'admin\OrdersController@complete')->name('admin.orders.complete');
             Route::get('/paid/{id}', 'admin\OrdersController@paid')->name('admin.orders.paid');

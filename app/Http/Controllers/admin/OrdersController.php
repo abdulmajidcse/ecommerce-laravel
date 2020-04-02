@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Order;
+use App\Cart;
 use PDF;
 
 class OrdersController extends Controller
@@ -41,6 +42,44 @@ class OrdersController extends Controller
                 'alert-type' => 'error',
             ];
             return redirect('/admin/orders')->with($notification);
+        }
+    }
+
+    public function cartUpdate(Request $request, $id)
+    {
+        $validateData = $request->validate([
+            'product_quantity' => 'required|numeric|min:1'
+        ]);
+        $cart = Cart::find($id);
+        if (is_null($cart)) {
+            $request->session()->flash('message', 'Something went wrong!');
+            $request->session()->flash('alert-type', 'error');
+            return redirect()->back();
+        } else {
+            $cart->product_quantity = $request->product_quantity;
+            $cart->save();
+            $request->session()->flash('message', 'Successfully product quantity saved!');
+            $request->session()->flash('alert-type', 'success');
+            return redirect()->back();
+        }
+    }
+
+    public function giveOffer(Request $request, $id)
+    {
+        $validateData = $request->validate([
+            'offer' => 'required|numeric|min:0'
+        ]);
+        $offer = Order::find($id);
+        if (is_null($offer)) {
+            $request->session()->flash('message', 'Something went wrong!');
+            $request->session()->flash('alert-type', 'error');
+            return redirect()->back();
+        } else {
+            $offer->offer = $request->offer;
+            $offer->save();
+            $request->session()->flash('message', 'Successfully offer added!');
+            $request->session()->flash('alert-type', 'success');
+            return redirect()->back();
         }
     }
 
@@ -98,6 +137,21 @@ class OrdersController extends Controller
         $pdf = PDF::loadView('admin.pages.orders.invoice', ['order' => $order]);
         // return $pdf->stream();
         return $pdf->download($order->name . '-invoice.pdf');
+    }
+
+    public function cartDestroy(Request $request, $id)
+    {
+        $cart = Cart::find($id);
+        if ($cart) {
+            $cart->delete();
+            $request->session()->flash('message', 'Successfully cart item deleted!');
+            $request->session()->flash('alert-type', 'success');
+            return redirect()->back();
+        } else {
+            $request->session()->flash('message', 'Something went wrong!');
+            $request->session()->flash('alert-type', 'error');
+            return redirect()->back();
+        }
     }
 
     public function destroy($id)

@@ -16,6 +16,7 @@ class Order extends Model
     	'email',
     	'message',
         'transaction_id',
+        'offer',
     	'is_paid',
     	'is_completed',
     	'is_seen_by_admin'

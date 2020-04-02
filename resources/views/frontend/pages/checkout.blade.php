@@ -51,7 +51,9 @@
 
                                                             <tr>
                                                                 <td>
+                                                                    @if ($products[$i]->productImages->first())
                                                                     <img src="{{ URL::to($products[$i]->productImages->first()->name) }}" class="img-fluid">
+                                                                    @endif
                                                                     <h6>{{ $products[$i]->title}}</h6>
                                                                 </td>
                                                                 <td>
@@ -96,7 +98,7 @@
                                     
                                     <div class="col-12">
                                         <div class="card mt-1">
-                                            <div class="card-header text-info">Shipping Address</div>
+                                            <div class="card-header text-info">Shipping Information</div>
                                             <div class="card-body">
                                                 <form method="POST" action="{{ url('/checkout/confirm') }}">
                                                     @csrf

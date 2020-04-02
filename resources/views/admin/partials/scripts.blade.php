@@ -3,7 +3,8 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <!--fontawesome icon cdn-->
+    <!-- Custom fonts for this template-->
+    <script src="{{ asset('fontawesome/css/all.min.js') }}"></script>
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('adminlink/js/sb-admin-2.min.js') }}"></script>
     <!-- toastr js -->
@@ -11,18 +12,30 @@
     <!-- sweetalert js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js" integrity="sha256-JirYRqbf+qzfqVtEE4GETyHlAbiCpC005yBTa4rj6xg=" crossorigin="anonymous"></script>
 
-    <script src="http://tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
 
     <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
 
-
-    <script type="application/x-javascript">
-
-    tinymce.init({selector:'.tinymce-editor'});
-
-    </script>
-
     <script type="text/javascript">
+      
+      ClassicEditor
+        .create( document.querySelector( '.editor1' ) )
+        .then( editor => {
+                console.log( editor );
+        } )
+        .catch( error => {
+                console.error( error );
+        } );
+
+        ClassicEditor
+        .create( document.querySelector( '.editor2' ) )
+        .then( editor => {
+                console.log( editor );
+        } )
+        .catch( error => {
+                console.error( error );
+        } );
+
       toastr.options = {
             "closeButton": true,
             "debug": false,

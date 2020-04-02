@@ -108,22 +108,11 @@
                     Tk {{ $totalPrice+$settings->shipping_cost }}
                 </th>
             </tr>
-            @if ($order->offer > 0)
-            <tr>
-                <th colspan="3" class="text-right">Total Price With Offer ({{ $order->offer }} %) = </th>
-                <th>
-                    @php
-                        $discount = (($totalPrice+$settings->shipping_cost)*$order->offer)/100;
-                    @endphp
-                    TK {{ $totalPrice-$discount }}
-                </th>
-            </tr>
-            @endif
             </tfoot>
         </table>
         
         <div style="margin: 10px;">
-            <p>Thank you for your purchase!</p>
+            <p>Thank you for your order!</p>
             <p> - {{ $settings->name }}</p>
             <p> {{ env('APP_URL') }}</p>
         </div>

@@ -138,6 +138,13 @@ Route::prefix('/admin')->group(function(){
             Route::get('/delete/{id}', 'admin\SubscriberController@destroy');
         });
 
+        //customers routes
+        Route::prefix('/customers')->group(function(){
+            Route::get('/', 'admin\CustomerController@index');
+            Route::get('/change-status/{id}/{status}', 'admin\CustomerController@changeStatus');
+            Route::get('/delete/{id}', 'admin\CustomerController@destroy');
+        });
+
         //custom pages routes
         Route::prefix('/custom-pages')->group(function(){
             Route::get('/', 'admin\CustomPageController@index');
@@ -225,6 +232,7 @@ Route::prefix('/checkout')->group(function(){
 	Route::get('/', 'frontend\CheckoutController@index');
 	Route::get('/select-payment-method/{payment_method_id}', 'frontend\CheckoutController@selectPaymentMethod');
 	Route::post('/confirm', 'frontend\CheckoutController@store');
+    Route::get('/invoice/{id}', 'frontend\CheckoutController@checkOutInvoice');
 });
 
 //add new subscriber 

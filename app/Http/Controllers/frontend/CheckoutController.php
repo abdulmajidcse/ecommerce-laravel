@@ -9,6 +9,8 @@ use App\Cart;
 use App\Payment;
 use App\Order;
 use App\Product;
+use App\Settings;
+use PDF;
 
 class CheckoutController extends Controller
 {
@@ -54,16 +56,6 @@ class CheckoutController extends Controller
                 }
             }
         }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -137,11 +129,8 @@ class CheckoutController extends Controller
                     $product->save();
                 }
                 $request->session()->forget('carts');
-                $notification = [
-                    'message' => 'Order confirmed! Please, wait for admin confirmation.',
-                    'alert-type' => 'success'
-                ];
-                return redirect()->route('home')->with($notification);
+                
+                return redirect('checkout/invoice/'.$order->id);
             }
         } else {
             $notification = [
@@ -152,48 +141,13 @@ class CheckoutController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function checkOutInvoice($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $order = Order::find($id);
+        $settings = Settings::get()->first();
+        // return view('admin.pages.orders.invoice', ['order' => $order]);
+        $pdf = PDF::loadView('frontend.pages.checkout_invoice', ['order' => $order, 'settings' => $settings]);
+        return $pdf->stream();
+        // return $pdf->download($order->name . '-invoice.pdf');
     }
 }

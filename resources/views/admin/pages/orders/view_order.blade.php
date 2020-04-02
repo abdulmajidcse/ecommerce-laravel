@@ -74,7 +74,10 @@
 
                                                     <tr>
                                                         <td>
-                                                            <img src="{{ url($cart->product->productImages->first()->name) }}" height="100px;">
+                                                            @if ($cart->product->productImages->first())
+                                                                <img src="{{ url($cart->product->productImages->first()->name) }}" height="100px;">
+                                                            @endif
+                                                            
                                                             <h6>{{ $cart->product->title}}</h6>
                                                         </td>
                                                         <td>

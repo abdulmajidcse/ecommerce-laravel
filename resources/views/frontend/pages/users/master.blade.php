@@ -19,9 +19,9 @@
               <!-- leftbar -->
               <div class="col-lg-3 col-md-4 my-3 p-0">
                 <div class="card">
-                  <img src="https://image.freepik.com/free-photo/image-human-brain_99433-298.jpg" class="card-img-top img-fluid" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</h5>
+                    <i class="fas fa-user-shield" style="font-size:150px;"></i>
+                    <h5 class="card-title mt-3">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</h5>
                   </div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item"><a href="{{ url('/user/edit') }}" class="btn btn-outline-dark">Edit profile</a></li>

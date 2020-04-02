@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->unsignedTinyInteger('status')->default(0)->comment('0=inactive|1=active');
+            $table->unsignedTinyInteger('status')->default(0)->comment('0=inactive|1=active|2=block');
             $table->timestamps();
         });
     }

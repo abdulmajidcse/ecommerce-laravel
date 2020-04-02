@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Cart;
 use PDF;
+use App\Settings;
 
 class OrdersController extends Controller
 {
@@ -133,10 +134,11 @@ class OrdersController extends Controller
     public function invoice($id)
     {
         $order = Order::find($id);
+        $settings = Settings::get()->first();
         // return view('admin.pages.orders.invoice', ['order' => $order]);
-        $pdf = PDF::loadView('admin.pages.orders.invoice', ['order' => $order]);
-        // return $pdf->stream();
-        return $pdf->download($order->name . '-invoice.pdf');
+        $pdf = PDF::loadView('admin.pages.orders.invoice', ['order' => $order, 'settings' => $settings]);
+        return $pdf->stream();
+        // return $pdf->download($order->name . '-invoice.pdf');
     }
 
     public function cartDestroy(Request $request, $id)

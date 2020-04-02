@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    {{ 'All Order' }}
+    {{ 'All Customer' }}
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Order</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Customer</h1>
                     <a href="{{ URL::to('/') }}" target="_blank" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-alt-circle-right"></i> Go to website</a>
                     </div>
 
@@ -21,7 +21,7 @@
                         <div class="col-12">
                             <div class="contentWrapper">
                                 <div class="card">
-                                    <div class="card-header text-primary">All Order</div>
+                                    <div class="card-header text-primary">All Customer</div>
                 
                                     <div class="form-group m-2">
                                         <input type="text" name="search" placeholder="Type here to search..." class="form-control mt-2" id="liveSearch">
@@ -33,47 +33,39 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Order ID</th>
-                                                    <th>Orderer Name</th>
-                                                    <th>Phone Number</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone</th>
+                                                    <th>Division</th>
+                                                    <th>District</th>
+                                                    <th>Street Address</th>
+                                                    <th>Registration IP</th>
+                                                    <th>Option</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if(count($orders) < 1)
+                                                @if(count($customers) < 1)
                                                 <tr>
-                                                    <td colspan="6"><p class="text-center text-danger"><em>No order</em></p></td>
+                                                    <td colspan="9"><p class="text-center text-danger"><em>No customer</em></p></td>
                                                 </tr>
                                                 @else
-                                                @foreach($orders as $row)
+                                                @foreach($customers as $customer)
                                                 <tr class="tr">
                                                     <td>{{ $loop->index + 1 }}</td>
-                                                    <td>#LE{{ $row->id }}</td>
-                                                    <td>{{ $row->name }}</td>
-                                                    <td>{{ $row->phone }}</td>
+                                                    <td>{{ $customer->first_name . ' ' . $customer->last_name }}</td>
+                                                    <td>{{ $customer->email }}</td>
+                                                    <td>{{ $customer->phone }}</td>
+                                                    <td>{{ $customer->division->name }}</td>
+                                                    <td>{{ $customer->district->name }}</td>
+                                                    <td>{{ $customer->street_address }}</td>
+                                                    <td>{{ $customer->ip_address }}</td>
                                                     <td>
-                                                        @if($row->is_seen_by_admin)
-                                                        <button type="button" class="btn btn-success btn-sm">Seen</button>
+                                                        @if ($customer->status == 0 OR $customer->status == 2)
+                                                            <a href="{{ URL::to('admin/customers/change-status/'.$customer->id.'/active') }}" class="btn btn-sm btn-info">Active</a>
                                                         @else
-                                                        <button type="button" class="btn btn-danger btn-sm">Unseen</button>
+                                                            <a href="{{ URL::to('admin/customers/change-status/'.$customer->id.'/block') }}" class="btn btn-sm btn-warning">Block</a>
                                                         @endif
-
-                                                        @if($row->is_paid)
-                                                        <button type="button" class="btn btn-success btn-sm">Paid</button>
-                                                        @else
-                                                        <button type="button" class="btn btn-danger btn-sm">Unpaid</button>
-                                                        @endif
-
-                                                        @if($row->is_completed)
-                                                        <button type="button" class="btn btn-success btn-sm">Complete</button>
-                                                        @else
-                                                        <button type="button" class="btn btn-danger btn-sm">Not complete</button>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{ URL::to('/admin/orders/view/'.$row->id) }}" class="btn btn-sm btn-info">View</a>
-                                                        <a id="delete" href="{{ URL::to('/admin/orders/delete/'.$row->id) }}" class="btn btn-sm btn-danger">Delete</a>
+                                                        <a id="delete" href="{{ URL::to('admin/customers/delete/'.$customer->id) }}" class="btn btn-sm btn-danger">Delete</a>
                                                     </td>
                                                 </tr>
                                                 @endforeach

@@ -72,7 +72,9 @@
                                                     @endif
                                                     <tr>
                                                         <td>
-                                                            <img src="{{ URL::to($products[$i]->productImages->first()->name) }}" class="img-fluid">
+                                                            @if ($products[$i]->productImages->first())
+                                                                <img src="{{ URL::to($products[$i]->productImages->first()->name) }}" class="img-fluid">
+                                                            @endif
                                                             <h6>{{ $products[$i]->title}}</h6>
                                                         </td>
                                                         <td>

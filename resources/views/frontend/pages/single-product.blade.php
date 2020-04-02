@@ -107,9 +107,12 @@
                         <div class="row">
                             <div class="col-12 py-3">
                                 <div class="row">
-                                    <div class="col-12 text-center text-uppercase">
-                                        <h2>Similar Products</h2>
-                                    </div>
+                                    @if (!$similarProducts)
+                                        <div class="col-12 text-center text-uppercase">
+                                            <h2>Similar Products</h2>
+                                        </div>
+                                    @endif
+                                    
                                 </div>
                                 <div class="row">
 

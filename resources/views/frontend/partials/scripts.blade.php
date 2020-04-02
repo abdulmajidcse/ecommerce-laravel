@@ -3,8 +3,8 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <!--fontawesome icon cdn-->
-    <script src="https://kit.fontawesome.com/71910267df.js" crossorigin="anonymous"></script>
+    <!-- Custom fonts for this template-->
+    <script src="{{ asset('fontawesome/css/all.min.js') }}"></script>
     <!-- toastr js -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- sweetalert js -->

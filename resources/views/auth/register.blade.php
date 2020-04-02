@@ -112,13 +112,7 @@
                                         <label for="password-confirm">{{ __('Confirm Password') }}</label>
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                     </div>
-
-                                    <div class="form-group">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="agree" class="form-check-input" required>
-                                            <label for="agree" class="form-check-label ml-2">I agree to Terms and Conditions</label>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-outline-dark">Register</button>
                                     </div>

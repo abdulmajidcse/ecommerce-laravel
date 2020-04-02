@@ -55,24 +55,32 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        $user = User::where('status', 1)->where('email', $request->email)->first();
-        if (!is_null($user)) {
-            if ($this->attemptLogin($request)) {
-                return $this->sendLoginResponse($request);
-            }
+        $block_user = User::where('status', 2)->where('email', $request->email)->first();
+        if ($block_user) {
+            $request->session()->flash('message', 'Admin blocked you for some causes. If you active your account, please contact with admin.');
+            $request->session()->flash('alert-type', 'warning');
+            return redirect()->to('login');
         } else {
-            $user_not_active = User::where('status', 0)->where('email', $request->email)->first();
-            if (!is_null($user_not_active)) {
-                $user_not_active->remember_token = Str::random(50);
-                $user_not_active->save();
-                $user_not_active->notify(new VerifyRegistration($user_not_active));
-                $notification = [
-                    'message' => 'A confirmation mail sent on your e-mail address. Please, check you e-mail and then try to login!',
-                    'alert-type' => 'success',
-                ];
-                return redirect()->to('login')->with($notification);
+            $user = User::where('status', 1)->where('email', $request->email)->first();
+            if (!is_null($user)) {
+                if ($this->attemptLogin($request)) {
+                    return $this->sendLoginResponse($request);
+                }
+            } else {
+                $user_not_active = User::where('status', 0)->where('email', $request->email)->first();
+                if (!is_null($user_not_active)) {
+                    $user_not_active->remember_token = Str::random(50);
+                    $user_not_active->save();
+                    $user_not_active->notify(new VerifyRegistration($user_not_active));
+                    $notification = [
+                        'message' => 'A confirmation mail sent on your e-mail address. Please, check you e-mail and then try to login!',
+                        'alert-type' => 'success',
+                    ];
+                    return redirect()->to('login')->with($notification);
+                }
             }
         }
+        
 
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this

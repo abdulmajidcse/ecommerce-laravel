@@ -18,7 +18,7 @@ class PagesController extends Controller
     public function singleProduct($slug){
         $product = Product::where('slug', $slug)->first();
         if ($product) {
-            $similarProducts = Product::orderBy('id', 'desc')->limit(4)->get();
+            $similarProducts = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->orderBy('id', 'desc')->limit(8)->get();
             return view('frontend.pages.single-product', compact('product', 'similarProducts'));
         } else {
             $notification = [

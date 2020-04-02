@@ -42,7 +42,7 @@
                                                 <label for="short_details" class="col-md-4 col-form-label text-md-right">Short details</label>
 
                                                 <div class="col-md-6">
-                                                    <textarea name="short_details" id="editor" class="form-control @error('short_details') is-invalid @enderror" required=""></textarea>
+                                                    <textarea name="short_details" id="short_details" class="editor1 form-control @error('short_details') is-invalid @enderror"></textarea>
                                                     @error('short_details')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -53,7 +53,7 @@
                                                 <label for="full_details" class="col-md-4 col-form-label text-md-right">Full details</label>
 
                                                 <div class="col-md-6">
-                                                    <textarea name="full_details" id="editor" class="form-control @error('full_details') is-invalid @enderror" required=""></textarea>
+                                                    <textarea name="full_details" id="full_details" class="editor2 form-control @error('full_details') is-invalid @enderror"></textarea>
                                                     @error('full_details')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror

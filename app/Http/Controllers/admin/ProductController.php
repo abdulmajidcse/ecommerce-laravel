@@ -8,6 +8,10 @@ use App\Product;
 use App\Category;
 use App\Brand;
 use App\ProductImage;
+use App\Subscriber;
+use Auth;
+use App\Notifications\SubscriberNotification;
+use Notification;
 
 class ProductController extends Controller
 {
@@ -19,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::orderBy('title', 'asc')->get();
+        $product = Product::orderBy('title', 'asc')->paginate(30);
         return view('admin.pages.products.all-product', compact('product'));
     }
 
@@ -59,7 +63,7 @@ class ProductController extends Controller
 
         $product = new Product();
 
-        $product->admin_id = 1;
+        $product->admin_id = Auth::user()->id;
         $product->title = $request->title;
         $product->short_details = $request->short_details;
         $product->full_details = $request->full_details;
@@ -89,10 +93,15 @@ class ProductController extends Controller
                 $image->move($upload_path, $image_name);
             }
         }
+        //sent a mail to subscriber for notify
+        if (Subscriber::count() > 0) {
+            $subscribers = Subscriber::all();
+            Notification::send($subscribers, new SubscriberNotification($product->slug));
+        }
 
         //confirm message
         $notification = [
-            'message' => 'Successfully product added!',
+            'message' => 'Successfully product added and send mail to subscriber for new product!',
             'alert-type' => 'success',
         ];
 
@@ -158,7 +167,7 @@ class ProductController extends Controller
 
         $product = Product::find($id);
 
-        $product->admin_id = 1;
+        $product->admin_id = Auth::user()->id;
         $product->title = $request->title;
         $product->short_details = $request->short_details;
         $product->full_details = $request->full_details;
@@ -173,8 +182,8 @@ class ProductController extends Controller
         //old images delete
         if ($request->image_del_check == "on") {
             //product image delete
-            if (!is_null($product->product_image)) {
-                foreach ($product->product_image as $image) {
+            if (!is_null($product->productImages)) {
+                foreach ($product->productImages as $image) {
                     if (file_exists($image->name)) {
                         unlink($image->name);
                     }
@@ -222,8 +231,8 @@ class ProductController extends Controller
         $product = Product::find($id);
         if (!is_null($product)) {
             //product image delete
-            if (!is_null($product->product_image)) {
-                foreach ($product->product_image as $image) {
+            if ($product->productImages) {
+                foreach ($product->productImages as $image) {
                     if (file_exists($image->name)) {
                         unlink($image->name);
                     }

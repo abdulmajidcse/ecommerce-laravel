@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Admin - Login</title>
+  <title>Admin - Password Reset Link</title>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -38,7 +38,7 @@
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image" style="background-image: url(https://cdn.searchenginejournal.com/wp-content/uploads/2017/11/e-commerce-link-building-760x400.png) !important; background-size: contain !important;"></div>
+              <div class="col-lg-6 d-none d-lg-block bg-login-image" style="background-image: url({{ asset('images/admin-images/admin-login.png') }}) !important; background-size: contain !important;"></div>
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
@@ -97,21 +97,38 @@
     <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
 
     <script type="text/javascript">
+      toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+          }
         //form submit message**********
         @if(Session::has('message'))
           var type = "{{ Session::get('alert-type') }}";
           switch(type){
             case 'success':
-              toastr["success"]("{{ Session::get('message') }}", "Success!");
+              toastr["success"]("{{ Session::get('message') }}");
               break;
             case 'info':
-              toastr["info"]("{{ Session::get('message') }}", "Information!");
+              toastr["info"]("{{ Session::get('message') }}");
               break;
             case 'warning':
-              toastr["warning"]("{{ Session::get('message') }}", "Warning!");
+              toastr["warning"]("{{ Session::get('message') }}");
               break;
             case 'error':
-              toastr["error"]("{{ Session::get('message') }}", "Error!");
+              toastr["error"]("{{ Session::get('message') }}");
           }
         @endif //end of form submit message**********
     

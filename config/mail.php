@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'phpdeveloper79@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'E-commerce Verification'),
+        'address' => env('MAIL_USERNAME'),
+        'name' => env('APP_NAME'),
     ],
 
     /*

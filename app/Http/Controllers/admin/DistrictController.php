@@ -18,7 +18,7 @@ class DistrictController extends Controller
     public function index()
     {
         //select data from district table
-        $districts = District::orderBy('name', 'asc')->get();
+        $districts = District::orderBy('name', 'asc')->paginate(30);
         return view('admin.pages.districts.all-district', compact('districts'));
     }
 

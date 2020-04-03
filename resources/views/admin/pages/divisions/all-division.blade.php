@@ -40,7 +40,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @php $i = 0; @endphp
                                                 @if(count($divisions) < 1)
                                                 <tr>
                                                     <td colspan="4"><p class="text-center text-danger"><em>No division</em></p></td>
@@ -48,7 +47,7 @@
                                                 @else
                                                 @foreach($divisions as $row)
                                                 <tr class="tr">
-                                                    <td>{{ ++$i }}</td>
+                                                    <td>{{ $loop->index+1 }}</td>
                                                     <td>{{ $row->name }}</td>
                                                     <td>{{ $row->priority }}</td>
                                                     <td>
@@ -65,6 +64,11 @@
                             </div>
                         </div>
                     </div><!--end of content row-->
+
+                    <!--pagination-->
+                    <div class="float-right mt-4">
+                        {{ $divisions->links() }}
+                    </div>
 
                 </div>
                 <!-- Begin Page Content -->

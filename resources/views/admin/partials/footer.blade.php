@@ -18,7 +18,7 @@
 <!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->
-<span class="scroll-to-top rounded" onclick="topFunction()" id="backtotop">
+<span class="scroll-to-top rounded" style="cursor: pointer;" title="Back to Top" onclick="topFunction()" id="backtotop">
 <i class="fas fa-angle-up"></i>
 </span>
 

@@ -87,6 +87,11 @@
                         </div>
                     </div><!--end of content row-->
 
+                    <!--pagination-->
+                    <div class="float-right mt-4">
+                        {{ $orders->links() }}
+                    </div>
+
                 </div>
                 <!-- Begin Page Content -->
 

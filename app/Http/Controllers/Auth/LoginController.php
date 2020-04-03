@@ -56,18 +56,21 @@ class LoginController extends Controller
         }
 
         $block_user = User::where('status', 2)->where('email', $request->email)->first();
+        // if user blocked by admin
         if ($block_user) {
             $request->session()->flash('message', 'Admin blocked you for some causes. If you active your account, please contact with admin.');
             $request->session()->flash('alert-type', 'warning');
             return redirect()->to('login');
         } else {
             $user = User::where('status', 1)->where('email', $request->email)->first();
+            // if user active, get permission to login
             if (!is_null($user)) {
                 if ($this->attemptLogin($request)) {
                     return $this->sendLoginResponse($request);
                 }
             } else {
                 $user_not_active = User::where('status', 0)->where('email', $request->email)->first();
+                //if user not active by his email verification, sent a mail by user email address
                 if (!is_null($user_not_active)) {
                     $user_not_active->remember_token = Str::random(50);
                     $user_not_active->save();

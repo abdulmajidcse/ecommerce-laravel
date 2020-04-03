@@ -111,8 +111,8 @@
                                             @csrf
                                             
                                             <div class="form-group">
-                                                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Enter your email..." required>
-                                                @error('email')
+                                                <input type="email" class="form-control @error('subscriber_email') is-invalid @enderror" name="subscriber_email" placeholder="Enter your email..." required>
+                                                @error('subscriber_email')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -138,6 +138,11 @@
         </div>
 
     </div>
+
+    <!-- Scroll to Top Button-->
+    <span class="scroll-to-top rounded" style="cursor: pointer; position: fixed ;right: 1rem; bottom: 1rem; display: none; width: 2.75rem; height: 2.75rem; text-align: center; color: #fff; background: rgba(90,92,105,.5); line-height: 46px;" title="Back to Top" onclick="topFunction()" id="backtotop">
+    <i class="fas fa-angle-up"></i>
+    </span>
 
     @include('frontend.partials.scripts')
 

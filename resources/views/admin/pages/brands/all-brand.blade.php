@@ -51,7 +51,11 @@
                                                     <td>{{ ++$i }}</td>
                                                     <td>{{ $row->name }}</td>
                                                     <td>{{ $row->description }}</td>
-                                                    <td><img src="{{ URL::to($row->image) }}" style="height: 50px;"></td>
+                                                    <td>
+                                                        @if ($row->image)
+                                                            <img src="{{ URL::to($row->image) }}" style="height: 50px;">
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <a href="{{ URL::to('/admin/brands/edit/'.$row->id) }}" class="btn btn-sm btn-info">Edit</a>
                                                         <a id="delete" href="{{ URL::to('/admin/brands/delete/'.$row->id) }}" class="btn btn-sm btn-danger">Delete</a>
@@ -67,6 +71,11 @@
                             </div>
                         </div>
                     </div><!--end of content row-->
+
+                    <!--pagination-->
+                    <div class="float-right mt-4">
+                        {{ $brand->links() }}
+                    </div>
 
                 </div>
                 <!-- Begin Page Content -->

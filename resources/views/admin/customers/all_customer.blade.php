@@ -79,6 +79,11 @@
                         </div>
                     </div><!--end of content row-->
 
+                    <!--pagination-->
+                    <div class="float-right mt-4">
+                        {{ $customers->links() }}
+                    </div>
+
                 </div>
                 <!-- Begin Page Content -->
 

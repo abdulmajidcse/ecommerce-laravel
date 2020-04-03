@@ -9,8 +9,9 @@
     <title>@yield('title', 'E-commerce')</title>
 
     @include('frontend.partials.styles')
-
-    <link rel="shortcut icon" href="{{ URL::to(App\Settings::get()->first()->logo) }}" type="image/png" />
+    @if (App\Settings::get()->first())
+        <link rel="shortcut icon" href="{{ URL::to(App\Settings::get()->first()->logo) }}" type="image/png" />
+    @endif
 
 </head>
 <body>

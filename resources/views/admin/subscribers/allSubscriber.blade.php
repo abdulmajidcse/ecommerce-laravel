@@ -28,7 +28,7 @@
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <!--all payment system table-->
+                                    <!--all subscriber table-->
                                     <table class="table table-hover table-striped table-bordered table-responsive-lg">
                                         <thead>
                                             <tr>
@@ -54,12 +54,15 @@
                                             @endforeach
                                             @endif
                                         </tbody>
-                                    </table><!--end of all payment system table-->
+                                    </table><!--end of all subscriber table-->
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                       
+                    <!--pagination-->
+                    <div class="float-right mt-4">
+                        {{ $subscribers->links() }}
                     </div>
 
                 </div>

@@ -6,22 +6,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\User;
 
-class VerifyRegistration extends Notification
+class SubscriberNotification extends Notification
 {
     use Queueable;
 
-    public $user = array();
+    public $productSlug;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct($productSlug)
     {
-        $this->user = $user;
+        $this->productSlug = $productSlug;
     }
 
     /**
@@ -44,11 +43,11 @@ class VerifyRegistration extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->subject('Register verification')
-        ->greeting('Dear ' . $this->user->first_name)
-        ->line('Your register verification link is here...')
-        ->action('Click to verify', url('/user/verify-token/'.$this->user->remember_token))
-        ->line('Thank you for using our application!');
+                    ->subject('New Product added')
+                    ->greeting('Dear Subscriber')
+                    ->line('Thanks a lot of you for subscribe our application. A new product added a few minute ago. You can check the product.')
+                    ->action('Check New Product', url('single-product/'.$this->productSlug))
+                    ->line('Thank you for using our application!');
     }
 
     /**

@@ -17,7 +17,7 @@ class DivisionController extends Controller
     public function index()
     {
         //select all division by division table
-        $divisions = Division::orderBy('priority', 'asc')->get();
+        $divisions = Division::orderBy('priority', 'asc')->paginate(30);
 
         return view('admin.pages.divisions.all-division', compact('divisions'));
     }

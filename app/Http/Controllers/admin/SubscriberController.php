@@ -15,7 +15,7 @@ class SubscriberController extends Controller
      */
     public function index()
     {
-        $subscribers = Subscriber::orderBy('id', 'desc')->get();
+        $subscribers = Subscriber::orderBy('id', 'desc')->paginate(30);
         return view('admin.subscribers.allSubscriber', ['subscribers' => $subscribers]);
     }
 
@@ -28,11 +28,11 @@ class SubscriberController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'email' => 'required|unique:subscribers|max:255',
+            'subscriber_email' => 'required|unique:subscribers,email|max:255',
         ]);
 
         $subscriber = new Subscriber();
-        $subscriber->email = $request->email;
+        $subscriber->email = $request->subscriber_email;
         $subscriber->save();
         $notification = [
             'message' => 'Congratulations! You added as a subscriber. Now you get update in your email.',

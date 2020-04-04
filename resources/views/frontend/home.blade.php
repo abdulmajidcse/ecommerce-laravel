@@ -116,9 +116,9 @@
             </div>
 
 
-            {{-- <script>
+            <script>
                 alert("It's a testing purpose and E-commerce demo website. Please, click Ok to continue...");
-            </script> --}}
+            </script>
 
 @endsection
 

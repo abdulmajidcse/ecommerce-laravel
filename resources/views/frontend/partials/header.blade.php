@@ -21,7 +21,7 @@
             <div class="col-12">
                 <header class="row">
                     <!-- Top Nav -->
-                    <div class="col-12 bg-dark py-2 d-md-block d-none">
+                    <div class="col-12 bg-dark py-2">
                         <div class="row">
                             <div class="col-auto mr-auto">
                                 <ul class="top-nav">

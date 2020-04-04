@@ -15,7 +15,7 @@
                                 <i class="fas fa-bell fa-fw"></i>
                                 
                                     @php
-                                        $notification = App\ORder::where('is_seen_by_admin', 0)->count();
+                                        $notification = App\Order::where('is_seen_by_admin', 0)->count();
                                     @endphp
                                     @if ($notification > 0)
                                     <!-- Counter - Alerts -->

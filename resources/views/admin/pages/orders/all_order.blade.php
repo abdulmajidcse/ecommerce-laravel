@@ -41,6 +41,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @php
+                                                    $i = $orders->perPage() * ($orders->currentPage()-1)
+                                                @endphp
                                                 @if(count($orders) < 1)
                                                 <tr>
                                                     <td colspan="6"><p class="text-center text-danger"><em>No order</em></p></td>
@@ -48,7 +51,7 @@
                                                 @else
                                                 @foreach($orders as $row)
                                                 <tr class="tr">
-                                                    <td>{{ $loop->index + 1 }}</td>
+                                                    <td>{{ ++$i }}</td>
                                                     <td>#LE{{ $row->id }}</td>
                                                     <td>{{ $row->name }}</td>
                                                     <td>{{ $row->phone }}</td>

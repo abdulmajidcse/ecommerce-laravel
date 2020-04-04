@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $category = Category::orderBy('id', 'desc')->get();
+        $category = Category::where('parent_id', NULL)->orderBy('id', 'desc')->get();
         return view('admin.pages.categories.add-category', compact('category'));
     }
 
@@ -41,7 +41,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
        $validatedData = $request->validate([
-            'name' => 'required|unique:categories|max:20',
+            'name' => 'required|unique:categories|max:100',
             'description' => 'max:50',
             'image' => 'mimes:jpg,jpeg,png|max:4000',
         ]);
@@ -137,7 +137,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:20',
+            'name' => 'required|max:100|unique:categories,name,'.$id,
             'description' => 'max:50',
             'image' => 'mimes:jpg,jpeg,png|max:4000',
         ]);

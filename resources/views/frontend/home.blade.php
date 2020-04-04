@@ -77,10 +77,6 @@
                     </div>
                     <!-- Latest Products -->
 
-                    <div class="col-12 text-center">
-                        <a href="#" class="btn btn-outline-dark mb-4 text-gray-100 h4">See All Product</a>
-                    </div>
-
                     <div class="col-12 py-3 bg-light d-sm-block d-none">
                         <div class="row">
                             <div class="col-lg-4 col ml-auto large-holder">
@@ -119,4 +115,12 @@
                 <!-- Main Content -->
             </div>
 
+
+            {{-- <script>
+                alert("It's a testing purpose and E-commerce demo website. Please, click Ok to continue...");
+            </script> --}}
+
 @endsection
+
+
+

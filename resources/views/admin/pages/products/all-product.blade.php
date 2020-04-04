@@ -42,7 +42,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @php $i = 0; @endphp
+                                                @php
+                                                    $i = $product->perPage() * ($product->currentPage()-1)
+                                                @endphp
                                                 @if(count($product) < 1)
                                                 <tr>
                                                     <td colspan="7"><p class="text-center text-danger"><em>No product</em></p></td>

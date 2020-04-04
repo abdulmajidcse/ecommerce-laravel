@@ -29,6 +29,7 @@
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">Notifications Center</h6>
                                 @if ($notification > 0)
+                                    <div style="max-height: 65vh; overflow: scroll;">
                                     @foreach (App\Order::where('is_seen_by_admin', 0)->orderBy('id', 'desc')->get() as $order)
                                         <a class="dropdown-item d-flex align-items-center" href="{{ URL::to('admin/orders/view/'.$order->id) }}">
                                             <div class="mr-3">
@@ -42,6 +43,7 @@
                                             </div>
                                         </a>
                                     @endforeach
+                                    </div>
                                 @else
                                     <p class="p-4 h6 text-danger text-center">No Notification here!</p>                                    
                                 @endif

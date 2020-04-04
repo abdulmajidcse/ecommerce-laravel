@@ -83,11 +83,11 @@
                                             <label for="content" class="col-md-4 col-form-label text-md-right">Page Content</label>
 
                                             <div class="col-md-6">
-                                                <textarea name="content" id="content" class="form-control @error('content') is-invalid @enderror" required="">{{ $custom_page->content }}</textarea>
-                                                @error('content')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                                <textarea name="content" id="content" class="form-control editor1 @error('content') is-invalid @enderror">{!! $custom_page->content !!}</textarea>
                                             </div>
+                                            @error('content')
+                                                <div class="text-danger col-md-6 offset-md-4">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group row mb-0">

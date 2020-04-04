@@ -40,7 +40,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @php $i = 0; @endphp
+                                                @php
+                                                    $i = $brand->perPage() * ($brand->currentPage()-1)
+                                                @endphp
                                                 @if(count($brand) < 1)
                                                 <tr>
                                                     <td colspan="5"><p class="text-center text-danger"><em>No brand</em></p></td>

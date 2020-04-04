@@ -44,6 +44,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @php
+                                                    $i = $customers->perPage() * ($customers->currentPage()-1)
+                                                @endphp
                                                 @if(count($customers) < 1)
                                                 <tr>
                                                     <td colspan="9"><p class="text-center text-danger"><em>No customer</em></p></td>
@@ -51,7 +54,7 @@
                                                 @else
                                                 @foreach($customers as $customer)
                                                 <tr class="tr">
-                                                    <td>{{ $loop->index + 1 }}</td>
+                                                    <td>{{ ++$i }}</td>
                                                     <td>{{ $customer->first_name . ' ' . $customer->last_name }}</td>
                                                     <td>{{ $customer->email }}</td>
                                                     <td>{{ $customer->phone }}</td>

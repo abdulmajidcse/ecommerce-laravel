@@ -26,7 +26,7 @@
                         <div class="col-12">
                             <div class="contentWrapper">
                                 <div class="card">
-                                    <div class="card-header text-primary">Add new category</div>
+                                    <div class="card-header text-primary">All category</div>
                 
                                     <div class="card-body">
                                         <!--all category table-->
@@ -42,7 +42,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @php $i = 0; @endphp
+                                                @php
+                                                    $i = $category->perPage() * ($category->currentPage()-1)
+                                                @endphp
+                                                
                                                 @if(count($category) < 1)
                                                 <tr>
                                                     <td colspan="6"><p class="text-center text-danger"><em>No category</em></p></td>

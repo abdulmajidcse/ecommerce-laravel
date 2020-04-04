@@ -43,10 +43,10 @@
 
                                                 <div class="col-md-6">
                                                     <textarea name="short_details" id="short_details" class="editor1 form-control @error('short_details') is-invalid @enderror"></textarea>
-                                                    @error('short_details')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
                                                 </div>
+                                                @error('short_details')
+                                                    <div class="text-danger col-md-6 offset-md-4">{{ $message }}</div>
+                                                @enderror
                                             </div>
 
                                             <div class="form-group row">
@@ -54,10 +54,10 @@
 
                                                 <div class="col-md-6">
                                                     <textarea name="full_details" id="full_details" class="editor2 form-control @error('full_details') is-invalid @enderror"></textarea>
-                                                    @error('full_details')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
                                                 </div>
+                                                @error('full_details')
+                                                    <div class="text-danger col-md-6 offset-md-4">{{ $message }}</div>
+                                                @enderror
                                             </div>
 
                                             <div class="form-group row">

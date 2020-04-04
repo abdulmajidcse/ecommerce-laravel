@@ -51,7 +51,11 @@
                                             <tr>
                                                 <td>{{ $loop->index + 1 }}</td>
                                                 <td>{{ $payment->name }}</td>
-                                                <td><img src="{{ URL::to($payment->image) }}" style="width: 150px;" alt=""></td>
+                                                <td>
+                                                    @if ($payment->image)
+                                                        <img src="{{ URL::to($payment->image) }}" style="width: 150px;" alt="">
+                                                    @endif
+                                                </td>
                                                 <td>{{ $payment->short_name }}</td>
                                                 <td>{{ $payment->no }}</td>
                                                 <td>{{ $payment->type }}</td>

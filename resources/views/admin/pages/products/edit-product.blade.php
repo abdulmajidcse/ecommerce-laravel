@@ -43,22 +43,22 @@
                                                 <label for="short_details" class="col-md-4 col-form-label text-md-right">Short details</label>
 
                                                 <div class="col-md-6">
-                                                    <textarea name="short_details" id="editor" class="form-control @error('short_details') is-invalid @enderror" required="">{!! $product->short_details !!}</textarea>
-                                                    @error('short_details')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
+                                                    <textarea name="short_details" id="editor" class="form-control editor1 @error('short_details') is-invalid @enderror">{!! $product->short_details !!}</textarea>
                                                 </div>
+                                                @error('short_details')
+                                                    <div class="text-danger col-md-6 offset-md-4">{{ $message }}</div>
+                                                @enderror
                                             </div>
 
                                             <div class="form-group row">
                                                 <label for="full_details" class="col-md-4 col-form-label text-md-right">Full details</label>
 
                                                 <div class="col-md-6">
-                                                    <textarea name="full_details" id="editor" class="form-control @error('full_details') is-invalid @enderror" required="">{!! $product->full_details !!}</textarea>
-                                                    @error('full_details')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
+                                                    <textarea name="full_details" id="editor" class="form-control editor2 @error('full_details') is-invalid @enderror">{!! $product->full_details !!}</textarea>
                                                 </div>
+                                                @error('full_details')
+                                                    <div class="text-danger col-md-6 offset-md-4">{{ $message }}</div>
+                                                @enderror
                                             </div>
 
                                             <div class="form-group row">

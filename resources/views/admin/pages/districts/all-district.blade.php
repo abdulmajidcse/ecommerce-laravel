@@ -40,7 +40,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @php $i = 0; @endphp
+                                                @php
+                                                    $i = $districts->perPage() * ($districts->currentPage()-1)
+                                                @endphp
                                                 @if(count($districts) < 1)
                                                 <tr>
                                                     <td colspan="4"><p class="text-center text-danger"><em>No district</em></p></td>

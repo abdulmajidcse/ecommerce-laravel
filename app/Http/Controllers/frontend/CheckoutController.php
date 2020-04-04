@@ -50,7 +50,7 @@ class CheckoutController extends Controller
             if (!is_null($paymentMethod)) {
                 $no = $paymentMethod->no;
                 if (empty($no)) {
-                    echo "<div class='alert alert-success mt-3'><h4>For Cash in, there is nothing necessary. Just click Finish Order.</h4><small>You will get your product in two or three business days.</small></div>";
+                    echo "<div class='alert alert-success mt-3'><h4>For $paymentMethod->name, there is nothing necessary. Just click Finish Order.</h4><small>You will get your product in two or three business days.</small></div>";
                 } else {
                     echo "<div class='alert alert-success mt-3'><h4>$paymentMethod->name Payment</h4><p><strong>$paymentMethod->name No: $paymentMethod->no</strong><br/><strong>Account Type: $paymentMethod->type</strong></p><p>Please, send the above money to this bKash No and write your transaction code below there.</p><input type='text' name='transaction_id' class='form-control' placeholder='Transaction ID'></div>";
                 }
@@ -129,7 +129,7 @@ class CheckoutController extends Controller
                     $product->save();
                 }
                 $request->session()->forget('carts');
-                
+
                 return redirect('checkout/invoice/'.$order->id);
             }
         } else {
@@ -141,13 +141,12 @@ class CheckoutController extends Controller
         }
     }
 
-    public function checkOutInvoice($id)
+    public function checkOutInvoice(Request $request, $id)
     {
         $order = Order::find($id);
         $settings = Settings::get()->first();
         // return view('admin.pages.orders.invoice', ['order' => $order]);
         $pdf = PDF::loadView('frontend.pages.checkout_invoice', ['order' => $order, 'settings' => $settings]);
         return $pdf->stream();
-        // return $pdf->download($order->name . '-invoice.pdf');
     }
 }

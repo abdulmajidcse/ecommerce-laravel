@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         
         $sliders = Slider::orderBy('priority', 'asc')->get();
-        $products = Product::orderBy('id', 'desc')->limit(8)->get();
+        $products = Product::orderBy('id', 'desc')->limit(16)->get();
         return view('frontend.home', compact('products', 'sliders'));
     }
 }

@@ -32,7 +32,7 @@
                                     <p class="text-info">Page Slug: {{ $custom_page->slug }}</p>
                                     <p>Page Type: {{ $custom_page->type == 1 ? 'Quick Link' : 'Help' }}</p>
                                     <img src="{{ URL::to($custom_page->image) }}" style="width: 200px;" class="img-fluid" alt="Page Image">
-                                    <p class="h5 text-justify mt-2">{{ $custom_page->content }}</p>
+                                    <p class="h5 text-justify mt-2">{!! $custom_page->content !!}</p>
                                 </div>
                             </div>
                         </div>

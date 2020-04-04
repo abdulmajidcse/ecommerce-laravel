@@ -32,7 +32,8 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Name</th>                                              <th>Content</th>
+                                                <th>Name</th>
+                                                <th>Content</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -41,7 +42,7 @@
                                                 <tr>
                                                     <td>{{ $loop->index+1 }}</td>
                                                     <td>{{ $custom_page->name }}</td>
-                                                    <td>{{ substr($custom_page->content, 0, 200) . '...' }}</td>
+                                                    <td>{!! substr($custom_page->content, 0, 200) . '...' !!}</td>
                                                     <td>
                                                         <a href="{{ URL::to('admin/custom-pages/view/'.$custom_page->id) }}" class="btn btn-outline-info btn-sm">View</a>
                                                         <a href="{{ URL::to('admin/custom-pages/edit/'.$custom_page->id) }}" class="btn btn-outline-success btn-sm">Edit</a>

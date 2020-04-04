@@ -38,6 +38,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $i = $subscribers->perPage() * ($subscribers->currentPage()-1)
+                                            @endphp
                                             @if(count($subscribers) < 1)
                                             <tr>
                                                 <td colspan="3"><p class="text-center text-danger"><em>Subscriber not available</em></p></td>
@@ -45,7 +48,7 @@
                                             @else
                                             @foreach($subscribers as $subscriber)
                                             <tr>
-                                                <td>{{ $loop->index + 1 }}</td>
+                                                <td>{{ ++$i }}</td>
                                                 <td>{{ $subscriber->email }}</td>
                                                 <td>
                                                     <a id="delete" href="{{ URL::to('/admin/subscribers/delete/'.$subscriber->id) }}" class="btn btn-sm btn-danger">Delete</a>

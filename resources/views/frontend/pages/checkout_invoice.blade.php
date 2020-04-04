@@ -42,9 +42,10 @@
         @endif
         <p><strong>Orderer Shipping Address: </strong>{{ $order->shipping_address }}</p>
         <p><strong>Orderer Payment Method: </strong>{{ $order->payment->name }}</p>
-        @if($order->payment->short_name != 'cash_in')
+        @if($order->transaction_id)
         <p><strong>Payment Transaction ID: </strong>{{ $order->transaction_id }}</p>
         @endif
+        <p><strong>Order Date: </strong>{{ date_format($order->created_at, 'h:i a, F d, Y') }}</p>
     </div>
 
     <div style="margin-top: 10px;">

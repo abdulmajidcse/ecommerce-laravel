@@ -40,6 +40,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @php
+                                                    $i = $divisions->perPage() * ($divisions->currentPage()-1)
+                                                @endphp
                                                 @if(count($divisions) < 1)
                                                 <tr>
                                                     <td colspan="4"><p class="text-center text-danger"><em>No division</em></p></td>
@@ -47,7 +50,7 @@
                                                 @else
                                                 @foreach($divisions as $row)
                                                 <tr class="tr">
-                                                    <td>{{ $loop->index+1 }}</td>
+                                                    <td>{{ ++$i }}</td>
                                                     <td>{{ $row->name }}</td>
                                                     <td>{{ $row->priority }}</td>
                                                     <td>
